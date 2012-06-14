@@ -1,15 +1,30 @@
-﻿Build started 6/14/2012 5:02:40 PM.
-     1>Project "C:\Users\Adam\AgentRadar\AgentRadar\AgentRadar.vcxproj" on node 2 (build target(s)).
+﻿Build started 6/14/2012 5:15:19 PM.
+     1>Project "C:\Jennie\AgentRadar\AgentRadar\AgentRadar.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating "Debug\AgentRadar.unsuccessfulbuild" because "AlwaysCreate" was specified.
        CustomBuild:
-         All outputs are up-to-date.
+         Moc'ing agentradar.h...
+         Uic'ing agentradar.ui...
+     1>C:\Jennie\AgentRadar\AgentRadar\agentradar.ui : warning : The name 'checkBox' (QCheckBox) is already in use, defaulting to 'checkBox1'.
+     1>C:\Jennie\AgentRadar\AgentRadar\agentradar.ui : warning : The name 'checkBox_2' (QCheckBox) is already in use, defaulting to 'checkBox_21'.
+         Moc'ing myglwidget.h...
+         Rcc'ing agentradar.qrc...
+     1>RCC : warning : No resources in 'C:\Jennie\AgentRadar\AgentRadar\agentradar.qrc'.
+         
        ClCompile:
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I.\GeneratedFiles /I. /IC:\Qt\4.8.0\include /I.\GeneratedFiles\Debug /IC:\Qt\4.8.0\include\QtCore /IC:\Qt\4.8.0\include\QtGui /IC:\Qt\4.8.0\include\QtOpenGL /Zi /nologo /W1 /WX- /Od /Oy- /D UNICODE /D WIN32 /D QT_LARGEFILE_SUPPORT /D QT_DLL /D QT_CORE_LIB /D QT_GUI_LIB /D QT_OPENGL_LIB /Gm- /EHsc /MDd /GS /fp:precise /Zc:wchar_t- /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt myglwidget.cpp
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I.\GeneratedFiles /I. /IC:\Qt\4.8.0\include /I.\GeneratedFiles\Debug /IC:\Qt\4.8.0\include\QtCore /IC:\Qt\4.8.0\include\QtGui /IC:\Qt\4.8.0\include\QtOpenGL /Zi /nologo /W1 /WX- /Od /Oy- /D UNICODE /D WIN32 /D QT_LARGEFILE_SUPPORT /D QT_DLL /D QT_CORE_LIB /D QT_GUI_LIB /D QT_OPENGL_LIB /Gm- /EHsc /MDd /GS /fp:precise /Zc:wchar_t- /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt agentradar.cpp GeneratedFiles\Debug\moc_agentradar.cpp GeneratedFiles\Debug\moc_myglwidget.cpp main.cpp myglwidget.cpp Sector.cpp Wedge.cpp
+         agentradar.cpp
+         moc_agentradar.cpp
+         moc_myglwidget.cpp
+         main.cpp
          myglwidget.cpp
-         All outputs are up-to-date.
+         Sector.cpp
+         Wedge.cpp
+         Generating Code...
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I.\GeneratedFiles /I. /IC:\Qt\4.8.0\include /I.\GeneratedFiles\Debug /IC:\Qt\4.8.0\include\QtCore /IC:\Qt\4.8.0\include\QtGui /IC:\Qt\4.8.0\include\QtOpenGL /Zi /nologo /W1 /WX- /Od /Oy- /D UNICODE /D WIN32 /D QT_LARGEFILE_SUPPORT /D QT_DLL /D QT_CORE_LIB /D QT_GUI_LIB /D QT_OPENGL_LIB /Gm- /EHsc /MDd /GS /fp:precise /Zc:wchar_t- /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt GeneratedFiles\qrc_agentradar.cpp
+         qrc_agentradar.cpp
        Link:
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Adam\AgentRadar\Win32\Debug\\AgentRadar.exe" /NOLOGO /LIBPATH:C:\Qt\4.8.0\lib qtmaind.lib QtCored4.lib QtGuid4.lib QtOpenGLd4.lib opengl32.lib glu32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\AgentRadar.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\Adam\AgentRadar\Win32\Debug\AgentRadar.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Adam\AgentRadar\Win32\Debug\AgentRadar.lib" /MACHINE:X86 Debug\agentradar.obj
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Jennie\AgentRadar\Win32\Debug\\AgentRadar.exe" /NOLOGO /LIBPATH:C:\Qt\4.8.0\lib qtmaind.lib QtCored4.lib QtGuid4.lib QtOpenGLd4.lib opengl32.lib glu32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\AgentRadar.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Jennie\AgentRadar\Win32\Debug\AgentRadar.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Jennie\AgentRadar\Win32\Debug\AgentRadar.lib" /MACHINE:X86 Debug\agentradar.obj
          Debug\moc_agentradar.obj
          Debug\moc_myglwidget.obj
          Debug\qrc_agentradar.obj
@@ -17,15 +32,15 @@
          Debug\myglwidget.obj
          Debug\Sector.obj
          Debug\Wedge.obj
-         LINK : C:\Users\Adam\AgentRadar\Win32\Debug\\AgentRadar.exe not found or not built by the last incremental link; performing full link
-         AgentRadar.vcxproj -> C:\Users\Adam\AgentRadar\Win32\Debug\AgentRadar.exe
+         LINK : C:\Jennie\AgentRadar\Win32\Debug\\AgentRadar.exe not found or not built by the last incremental link; performing full link
+         AgentRadar.vcxproj -> C:\Jennie\AgentRadar\Win32\Debug\AgentRadar.exe
        Manifest:
-         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"C:\Users\Adam\AgentRadar\Win32\Debug\\AgentRadar.exe;#1" /manifest Debug\AgentRadar.exe.intermediate.manifest
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"C:\Jennie\AgentRadar\Win32\Debug\\AgentRadar.exe;#1" /manifest Debug\AgentRadar.exe.intermediate.manifest
        FinalizeBuildStatus:
          Deleting file "Debug\AgentRadar.unsuccessfulbuild".
          Touching "Debug\AgentRadar.lastbuildstate".
-     1>Done Building Project "C:\Users\Adam\AgentRadar\AgentRadar\AgentRadar.vcxproj" (build target(s)).
+     1>Done Building Project "C:\Jennie\AgentRadar\AgentRadar\AgentRadar.vcxproj" (build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:02.15
+Time Elapsed 00:00:12.97

@@ -605,10 +605,353 @@
    <extends>QWidget</extends>
    <header>myglwidget.h</header>
    <container>1</container>
+   <slots>
+    <slot>WedgeSelectLeft(bool)</slot>
+    <slot>WedgeSelectRight(bool)</slot>
+    <slot>WedgeSelectNear(bool)</slot>
+    <slot>WedgeSelectFar(bool)</slot>
+    <slot>WedgeClockwise()</slot>
+    <slot>WedgeCounterClockwise()</slot>
+    <slot>WedgeCloser()</slot>
+    <slot>WedgeFarther()</slot>
+    <slot>DisplayAgents(bool)</slot>
+    <slot>DisplayObstacles(bool)</slot>
+    <slot>DisplayInspection(bool)</slot>
+    <slot>DisplayNetFlow(bool)</slot>
+    <slot>DisplayDensity(bool)</slot>
+    <slot>SetCardinality(int)</slot>
+    <slot>WedgeSetDegrees(int)</slot>
+    <slot>WedgeSetDistance(double)</slot>
+    <slot>SetTypeWedges()</slot>
+    <slot>SetTypeRectangles()</slot>
+    <slot>SetNumberSectors(int)</slot>
+    <slot>MergeSelectedSectors()</slot>
+   </slots>
   </customwidget>
  </customwidgets>
  <resources>
   <include location="agentradar.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>checkBox_6</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>widget</receiver>
+   <slot>WedgeSelectNear(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>42</x>
+     <y>607</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>265</x>
+     <y>396</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_7</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>widget</receiver>
+   <slot>WedgeSelectFar(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>124</x>
+     <y>613</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>263</x>
+     <y>404</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>widget</receiver>
+   <slot>WedgeSelectLeft(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>30</x>
+     <y>514</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>268</x>
+     <y>387</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_2</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>widget</receiver>
+   <slot>WedgeSelectRight(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>147</x>
+     <y>511</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>268</x>
+     <y>387</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>widget</receiver>
+   <slot>WedgeClockwise()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>57</x>
+     <y>535</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>289</x>
+     <y>382</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>widget</receiver>
+   <slot>WedgeCounterClockwise()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>169</x>
+     <y>531</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>275</x>
+     <y>416</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_3</sender>
+   <signal>clicked()</signal>
+   <receiver>widget</receiver>
+   <slot>WedgeCloser()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>74</x>
+     <y>632</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>263</x>
+     <y>425</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_4</sender>
+   <signal>clicked()</signal>
+   <receiver>widget</receiver>
+   <slot>WedgeFarther()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>137</x>
+     <y>633</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>262</x>
+     <y>431</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>widget</receiver>
+   <slot>DisplayAgents(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>77</x>
+     <y>80</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>285</x>
+     <y>85</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_2</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>widget</receiver>
+   <slot>DisplayObstacles(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>69</x>
+     <y>98</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>273</x>
+     <y>100</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_3</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>widget</receiver>
+   <slot>DisplayInspection(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>65</x>
+     <y>121</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>268</x>
+     <y>118</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_4</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>widget</receiver>
+   <slot>DisplayNetFlow(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>66</x>
+     <y>139</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>143</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_5</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>widget</receiver>
+   <slot>DisplayDensity(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>40</x>
+     <y>159</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>271</x>
+     <y>158</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>widget</receiver>
+   <slot>SetCardinality(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>54</x>
+     <y>184</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>267</x>
+     <y>179</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox_2</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>widget</receiver>
+   <slot>WedgeSetDegrees(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>44</x>
+     <y>562</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>270</x>
+     <y>364</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>doubleSpinBox</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>widget</receiver>
+   <slot>WedgeSetDistance(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>56</x>
+     <y>662</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>262</x>
+     <y>350</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButton</sender>
+   <signal>clicked()</signal>
+   <receiver>widget</receiver>
+   <slot>SetTypeWedges()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>185</x>
+     <y>64</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>262</x>
+     <y>58</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>widget</receiver>
+   <slot>SetTypeRectangles()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>185</x>
+     <y>81</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>290</x>
+     <y>76</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox_4</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>widget</receiver>
+   <slot>SetNumberSectors(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>160</x>
+     <y>118</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>293</x>
+     <y>128</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_5</sender>
+   <signal>clicked()</signal>
+   <receiver>widget</receiver>
+   <slot>MergeSelectedSectors()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>108</x>
+     <y>430</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>263</x>
+     <y>336</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

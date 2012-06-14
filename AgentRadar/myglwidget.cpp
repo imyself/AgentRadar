@@ -106,3 +106,9 @@ void MyGLWidget::Render(Sector* s){
 		;
 	}
 }
+
+//SLOTS
+
+void MyGLWidget::AddArcToList(QListWidgetItem* q){
+	emit ArcAdded(q);
+}
