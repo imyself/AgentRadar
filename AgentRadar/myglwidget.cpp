@@ -3,13 +3,13 @@
 #include "glm/gtc/matrix_transform.hpp"
 
 MyGLWidget::MyGLWidget(QWidget* parent) : QGLWidget(parent) {
-	;
+	setFocusPolicy(Qt::ClickFocus);
 }
 
 void MyGLWidget::mousePressEvent(QMouseEvent* e){
 	if(e->buttons() == Qt::LeftButton){
 		for(unsigned int i = 0; i < sectors.size(); i++){
-			if(sectors[i]->IntersectionTest(e->x(), e->y())){
+			if(sectors[i]->IntersectionTest(e->x(), e->y(), max_distance)){
 				ToggleSelected(sectors[i]);
 			}
 		}
@@ -43,6 +43,26 @@ void MyGLWidget::initializeGL(){
 	//glLoadIdentity();
 
 	sectors.push_back(new Wedge());
+	sectors.push_back(new Wedge(180, 120, 10, 100));
+	sectors.push_back(new Wedge(240, 180, 10, 100));
+	sectors.push_back(new Wedge(300, 240, 10, 100));
+	sectors.push_back(new Wedge(360, 300, 10, 100));
+	sectors.push_back(new Wedge(60, 0, 10, 100));
+	//Update max distance
+	max_distance = 0;
+	UpdateMaxDistance();
+}
+
+void MyGLWidget::UpdateMaxDistance(){
+	for(unsigned int i = 0; i < sectors.size(); i++){
+		if(sectors[i]->GetType() == 1){
+			if(max_distance < dynamic_cast<Wedge*>(sectors[i])->far_bound)
+				max_distance = dynamic_cast<Wedge*>(sectors[i])->far_bound;
+		}
+		else if(sectors[i]->GetType() == 2){
+			//Max distance for rectangles
+		}
+	}
 }
 
 void MyGLWidget::resizeGL(int width, int height){
@@ -51,7 +71,7 @@ void MyGLWidget::resizeGL(int width, int height){
  
       glMatrixMode(GL_PROJECTION);
       glLoadIdentity();
-      glOrtho(-10,10,-10,10,-1,1);
+      glOrtho(-1,1,-1,1,-1,1);
       glMatrixMode(GL_MODELVIEW);
 }
 
@@ -66,9 +86,7 @@ void MyGLWidget::Render(Sector* s){
 	//Wedge
 	if(s->GetType() == 1){
 		Wedge* w = dynamic_cast<Wedge*>(s);
-		//GLUquadric* q = gluNewQuadric();
-		//gluPartialDisk(q, w->near_bound, w->far_bound, 10, 0, w->right_bound, w->left_bound);
-		float pos = 0.0f;
+		//Draw the body of the wedge
 		glBegin(GL_POLYGON);
 			//Color
 			if(w->selected)
@@ -76,30 +94,66 @@ void MyGLWidget::Render(Sector* s){
 			else
 				glColor3f(1,0.3,0.3);
 			//Far right bound
-			glm::vec4 p(w->far_bound, 0, 1, 1);
+			glm::vec4 p(w->far_bound/max_distance, 0, 1, 1);
 			p = glm::rotate(glm::mat4(1.0f), (float)w->right_bound, glm::vec3(0,0,1)) * p;
 			glVertex2f(p.x, p.y);
 			//Rotate FRB by 5 degrees until reach FLB
 			int angle = w->right_bound;
 			while(angle < w->left_bound){
 				angle = min(angle + 5, w->left_bound);
-				p = glm::vec4(w->far_bound, 0, 1, 1);
+				p = glm::vec4(w->far_bound/max_distance, 0, 1, 1);
 				p = glm::rotate(glm::mat4(1.0f), (float)angle, glm::vec3(0,0,1)) * p;
 				glVertex2f(p.x, p.y);
 			}
 			//Near left bound
-			p = glm::vec4(w->near_bound, 0, 1, 1);
+			p = glm::vec4(w->near_bound/max_distance, 0, 1, 1);
 			p = glm::rotate(glm::mat4(1.0f), (float)w->left_bound, glm::vec3(0,0,1)) * p;
 			glVertex2f(p.x, p.y);
 			//Rotate NLB by 5 degrees until reach NRB
 			angle = w->left_bound;
 			while(angle > w->right_bound){
 				angle = max(angle - 5, w->right_bound);
-				p = glm::vec4(w->near_bound, 0, 1, 1);
+				p = glm::vec4(w->near_bound/max_distance, 0, 1, 1);
 				p = glm::rotate(glm::mat4(1.0f), (float)angle, glm::vec3(0,0,1)) * p;
 				glVertex2f(p.x, p.y);
 			}
 		glEnd();
+		//Draw the outline of the wedge
+		glBegin(GL_LINES);
+		//Right line
+			glColor3f(1,1,1);
+			glm::vec4 p1(w->near_bound/max_distance, 0, 1, 1);
+			glm::vec4 p2(w->far_bound/max_distance, 0, 1, 1);
+			p1 = glm::rotate(glm::mat4(1.0f), (float)w->right_bound, glm::vec3(0,0,1)) * p1;
+			p2 = glm::rotate(glm::mat4(1.0f), (float)w->right_bound, glm::vec3(0,0,1)) * p2;
+			glVertex2f(p1.x, p1.y);
+			glVertex2f(p2.x, p2.y);
+		//Left line
+			glColor3f(1,1,1);
+			p1 = glm::vec4(w->near_bound/max_distance, 0, 1, 1);
+			p2 = glm::vec4(w->far_bound/max_distance, 0, 1, 1);
+			p1 = glm::rotate(glm::mat4(1.0f), (float)w->left_bound, glm::vec3(0,0,1)) * p1;
+			p2 = glm::rotate(glm::mat4(1.0f), (float)w->left_bound, glm::vec3(0,0,1)) * p2;
+			glVertex2f(p1.x, p1.y);
+			glVertex2f(p2.x, p2.y);
+		glEnd();
+		//Draw the snapping points
+		for(unsigned int i = 0; i < w->snapping_points.size(); i++){
+			float s = w->snapping_points[i] / max_distance;
+			p = glm::vec4(s, 0, 1, 1);
+			glBegin(GL_LINE_STRIP);
+				glColor3f(0,0,1);
+				p = glm::rotate(glm::mat4(1.0f), (float)w->right_bound, glm::vec3(0,0,1)) * p;
+				glVertex2f(p.x, p.y);
+				angle = w->right_bound;
+				while(angle < w->left_bound){
+					angle = min(angle + 5, w->left_bound);
+					p = glm::vec4(s, 0, 1, 1);
+					p = glm::rotate(glm::mat4(1.0f), (float)angle, glm::vec3(0,0,1)) * p;
+					glVertex2f(p.x, p.y);
+				}
+			glEnd();
+		}
 	}
 	//Rectangle
 	else if(s->GetType() == 2){

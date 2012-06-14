@@ -7,10 +7,13 @@ Wedge::Wedge() : Sector()
 {
 	left_bound = 120;
 	right_bound = 60;
-	near_bound = 0.0f;
-	far_bound = 5.0f;
+	near_bound = 10.0f;
+	far_bound = 100.0f;
 	sweep = 60;
 	//Add default snapping points later?
+	for(int i = 15; i < 100; i+=10){
+		snapping_points.push_back(i);
+	}
 }
 
 Wedge::Wedge(int lb, int rb, float nb, float fb) : Sector(){
@@ -33,25 +36,27 @@ Wedge::~Wedge()
 {
 }
 
-bool Wedge::IntersectionTest(float x, float y){
+bool Wedge::IntersectionTest(float x, float y, float max_distance){
 	//Inner circle test
-	if(glm::distance(vec2(x,y), vec2(0,0)) < this->near_bound)
+	if(glm::distance(vec2(x-200,200-y)/200.0f, vec2(0,0)) < this->near_bound/max_distance)
 		return false;
 	//Outer circle test
-	if(glm::distance(vec2(x,y), vec2(0,0)) > this->far_bound)
+	if(glm::distance(vec2(x-200,200-y)/200.0f, vec2(0,0)) > this->far_bound/max_distance)
 		return false;
 	//Arc test
 	//Right vector
-	mat2 rotate = mat2(cos((float)right_bound), sin((float)right_bound), -sin((float)right_bound), cos((float)right_bound));//Column major
+	float rb = glm::radians((float)right_bound);
+	float lb = glm::radians((float)left_bound);
+	mat2 rotate = mat2(cos(rb), sin(rb), -sin(rb), cos(rb));//Column major
 	vec2 a = rotate * vec2(1,0);
 	//Left vector
-	rotate = mat2(cos((float)left_bound), sin((float)left_bound), -sin((float)left_bound), cos((float)left_bound));//Column major
+	rotate = mat2(cos(lb), sin(lb), -sin(lb), cos(lb));//Column major
 	vec2 b = rotate * vec2(1,0);
 	//Point clicked
-	vec2 v = glm::normalize(vec2(x,y));
+	vec2 v = glm::normalize(vec2(x-200,200-y));
 	//Angles
-	float angle_a = acos(glm::dot(a,v));//WORRY ABOUT NEGATIVE ANGLES!!!!!!!!!111!!!!
-	float angle_b = acos(glm::dot(v,b));
+	float angle_a = glm::degrees(acos(glm::dot(a,v)));//WORRY ABOUT NEGATIVE ANGLES!!!!!!!!!111!!!!
+	float angle_b = glm::degrees(acos(glm::dot(b,v)));
 	if(abs(sweep - (angle_a + angle_b)) > 0.01f)
 		return false;
 

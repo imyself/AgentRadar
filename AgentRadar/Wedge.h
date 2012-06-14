@@ -14,7 +14,7 @@ public:
 	Wedge(int lb, int rb, float nb, float fb, bool a, bool o, bool i, bool nf, bool d, int c);
 	~Wedge(void);
 
-	bool IntersectionTest(float x, float y);
+	bool IntersectionTest(float x, float y, float max_distance);
 	int ComputeSweep(int lb, int rb);
 	int GetType();
 

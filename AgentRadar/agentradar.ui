@@ -453,7 +453,7 @@
        <string>0</string>
       </property>
      </widget>
-     <widget class="QListWidget" name="listWidget">
+     <widget class="qList" name="listWidget">
       <property name="geometry">
        <rect>
         <x>310</x>
@@ -627,6 +627,11 @@
     <slot>SetNumberSectors(int)</slot>
     <slot>MergeSelectedSectors()</slot>
    </slots>
+  </customwidget>
+  <customwidget>
+   <class>qList</class>
+   <extends>QListWidget</extends>
+   <header>qList.h</header>
   </customwidget>
  </customwidgets>
  <resources>

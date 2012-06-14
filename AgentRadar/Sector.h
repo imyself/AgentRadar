@@ -7,7 +7,7 @@ public:
 	Sector(bool a, bool o, bool i, bool nf, bool d, int c);
 	~Sector(void);
 
-	virtual bool IntersectionTest(float x, float y);
+	virtual bool IntersectionTest(float x, float y, float max_distance);
 	virtual int GetType();
 
 	bool agents, obstacles, inspection, net_flow, density;
