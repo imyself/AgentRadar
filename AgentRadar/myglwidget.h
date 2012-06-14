@@ -22,4 +22,5 @@ public:
 
 	void paintGL();
 	void initializeGL();
+	void resizeGL(int, int);
 };

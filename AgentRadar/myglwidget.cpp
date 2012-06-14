@@ -14,32 +14,45 @@ void MyGLWidget::mousePressEvent(QMouseEvent* e){
 			}
 		}
 	}
+	updateGL();
 }
 
 void MyGLWidget::ToggleSelected(Sector* s){
 	for(unsigned int i = 0; i < selected_sectors.size(); i++){
 		if(selected_sectors[i] == s){
+			s->selected = false;
 			selected_sectors.erase(selected_sectors.begin() + i);
 			return;
 		}
 	}
 	selected_sectors.push_back(s);
+	s->selected = true;
 }
 
 void MyGLWidget::initializeGL(){
 	glClearColor(0, 0, 0, 1);
-	glEnable(GL_DEPTH_TEST);
+	//glEnable(GL_DEPTH_TEST);
 	glClearDepth(1.0);
 	glDepthFunc(GL_LEQUAL);
 
-	glMatrixMode(GL_PROJECTION);
-	glOrtho(-10, 10, -10, 10, -1, 1);
+	//glMatrixMode(GL_PROJECTION);
+	//glOrtho(-10, 10, -10, 10, -1, 1);
 
-	glMatrixMode(GL_MODELVIEW);
-	glPushMatrix();
-	glLoadIdentity();
+	//glMatrixMode(GL_MODELVIEW);
+	//glPushMatrix();
+	//glLoadIdentity();
 
 	sectors.push_back(new Wedge());
+}
+
+void MyGLWidget::resizeGL(int width, int height){
+      int side = qMin(width, height);
+      glViewport((width - side) / 2, (height - side) / 2, side, side);
+ 
+      glMatrixMode(GL_PROJECTION);
+      glLoadIdentity();
+      glOrtho(-10,10,-10,10,-1,1);
+      glMatrixMode(GL_MODELVIEW);
 }
 
 void MyGLWidget::paintGL(){
@@ -58,11 +71,13 @@ void MyGLWidget::Render(Sector* s){
 		float pos = 0.0f;
 		glBegin(GL_POLYGON);
 			//Color
-			glColor3f(1,0.3,0.3);
+			if(w->selected)
+				glColor3f(0.3,1,0.3);
+			else
+				glColor3f(1,0.3,0.3);
 			//Far right bound
 			glm::vec4 p(w->far_bound, 0, 1, 1);
 			p = glm::rotate(glm::mat4(1.0f), (float)w->right_bound, glm::vec3(0,0,1)) * p;
-			p = glm::translate(glm::mat4(1.0f), glm::vec3(pos,pos,0.0f)) * p;
 			glVertex2f(p.x, p.y);
 			//Rotate FRB by 5 degrees until reach FLB
 			int angle = w->right_bound;
@@ -70,13 +85,11 @@ void MyGLWidget::Render(Sector* s){
 				angle = min(angle + 5, w->left_bound);
 				p = glm::vec4(w->far_bound, 0, 1, 1);
 				p = glm::rotate(glm::mat4(1.0f), (float)angle, glm::vec3(0,0,1)) * p;
-				p = glm::translate(glm::mat4(1.0f), glm::vec3(pos,pos,0.0f)) * p;
 				glVertex2f(p.x, p.y);
 			}
 			//Near left bound
 			p = glm::vec4(w->near_bound, 0, 1, 1);
 			p = glm::rotate(glm::mat4(1.0f), (float)w->left_bound, glm::vec3(0,0,1)) * p;
-			p = glm::translate(glm::mat4(1.0f), glm::vec3(pos,pos,0.0f)) * p;
 			glVertex2f(p.x, p.y);
 			//Rotate NLB by 5 degrees until reach NRB
 			angle = w->left_bound;
@@ -84,7 +97,6 @@ void MyGLWidget::Render(Sector* s){
 				angle = max(angle - 5, w->right_bound);
 				p = glm::vec4(w->near_bound, 0, 1, 1);
 				p = glm::rotate(glm::mat4(1.0f), (float)angle, glm::vec3(0,0,1)) * p;
-				p = glm::translate(glm::mat4(1.0f), glm::vec3(pos,pos,0.0f)) * p;
 				glVertex2f(p.x, p.y);
 			}
 		glEnd();

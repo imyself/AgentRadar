@@ -8,7 +8,7 @@ Wedge::Wedge() : Sector()
 	left_bound = 120;
 	right_bound = 60;
 	near_bound = 0.0f;
-	far_bound = 800.0f;
+	far_bound = 5.0f;
 	sweep = 60;
 	//Add default snapping points later?
 }
