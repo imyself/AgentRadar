@@ -33,7 +33,7 @@ void MyGLWidget::initializeGL(){
 	glDepthFunc(GL_LEQUAL);
 
 	glMatrixMode(GL_PROJECTION);
-	gluOrtho2D(-10, 10, -10, 10);
+	glOrtho(-10, 10, -10, 10, -1, 1);
 
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();

@@ -3,7 +3,7 @@
 #include <QGLWidget>
 #include <QMouseEvent>
 #include <vector>
-#include <glut.h>
+//#include <glut.h>
 #include "Sector.h"
 
 using namespace std;
