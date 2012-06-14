@@ -61,11 +61,8 @@ public slots:
 	void WedgeFarther();
 	void WedgeSetDistance(double);
 
-	//Snapping Arcs
-	void AddArcToList(QListWidgetItem* q);
-
 signals:
+	void SendSnappingPoint(QListWidgetItem*);
 
-	void ArcAdded(QListWidgetItem*);
 
 };

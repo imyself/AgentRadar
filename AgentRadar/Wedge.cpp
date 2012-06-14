@@ -12,7 +12,7 @@ Wedge::Wedge() : Sector()
 	sweep = 60;
 	//Add default snapping points later?
 	for(int i = 15; i < 100; i+=10){
-		snapping_points.push_back(i);
+		snapping_points.push_back(new SnappingPoint(i));
 	}
 }
 
