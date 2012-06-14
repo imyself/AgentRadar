@@ -1,6 +1,8 @@
 #include "qList.h"
 
-
+SnappingPoint::SnappingPoint(int pos){
+	position = pos;
+}
 qList::qList(void)
 {
 }
@@ -16,6 +18,4 @@ void qList::AddToList(QListWidgetItem* a){
 	addItem(a);
 }
 
-void qList::DeleteFromList(QListWidgetItem* d){
-	takeItem(row(d));
-}
+

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Sector.h"
+#include "qList.h"
 #include <vector>
 #include "glm/glm.hpp"
 
@@ -22,6 +23,6 @@ public:
 	float near_bound, far_bound;
 	int sweep;
 
-	vector<int> snapping_points;
+	vector<SnappingPoint*> snapping_points;
 };
 

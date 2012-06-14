@@ -1,6 +1,13 @@
 #pragma once
 #include<QListWidget>
 
+class SnappingPoint:public QListWidgetItem
+{
+public:
+	SnappingPoint(int);
+	int position;
+};
+
 class qList:public QListWidget
 {
 	Q_OBJECT
@@ -11,6 +18,6 @@ public:
 
 public slots:
 	void AddToList(QListWidgetItem* a);
-	void DeleteFromList(QListWidgetItem* d);
+	
 };
 

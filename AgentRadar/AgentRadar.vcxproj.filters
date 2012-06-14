@@ -65,6 +65,15 @@
     <ClCompile Include="GeneratedFiles\Release\moc_myglwidget.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="qList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qList.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qList.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="agentradar.h">
@@ -77,6 +86,9 @@
       <Filter>Resource Files</Filter>
     </CustomBuild>
     <CustomBuild Include="myglwidget.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="qList.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>

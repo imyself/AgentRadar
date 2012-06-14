@@ -18,15 +18,22 @@ void MyGLWidget::mousePressEvent(QMouseEvent* e){
 }
 
 void MyGLWidget::ToggleSelected(Sector* s){
+	//Clear the QListWidget
 	for(unsigned int i = 0; i < selected_sectors.size(); i++){
 		if(selected_sectors[i] == s){
 			s->selected = false;
 			selected_sectors.erase(selected_sectors.begin() + i);
+			//Get the last Sector* in sel_secs if we're dealing with Wedges and send all its snapping pts to the QListWidget
 			return;
 		}
 	}
 	selected_sectors.push_back(s);
 	s->selected = true;
+	if(s->GetType()==1){
+		for(unsigned int i = 0; i < dynamic_cast<Wedge*>(s)->snapping_points.size(); i++){
+			emit SendSnappingPoint(dynamic_cast<Wedge*>(s)->snapping_points[i]);
+		}
+	}
 }
 
 void MyGLWidget::initializeGL(){
@@ -139,7 +146,7 @@ void MyGLWidget::Render(Sector* s){
 		glEnd();
 		//Draw the snapping points
 		for(unsigned int i = 0; i < w->snapping_points.size(); i++){
-			float s = w->snapping_points[i] / max_distance;
+			float s = w->snapping_points[i]->position / max_distance;
 			p = glm::vec4(s, 0, 1, 1);
 			glBegin(GL_LINE_STRIP);
 				glColor3f(0,0,1);
@@ -163,6 +170,52 @@ void MyGLWidget::Render(Sector* s){
 
 //SLOTS
 
-void MyGLWidget::AddArcToList(QListWidgetItem* q){
-	emit ArcAdded(q);
+//SET UP
+void MyGLWidget::SetTypeWedges(){
+}
+void MyGLWidget::SetTypeRectangles(){
+}
+void MyGLWidget::SetNumberSectors(int){
+}
+
+void MyGLWidget::MergeSelectedSectors(){
+}
+
+//FLAGS
+void MyGLWidget::DisplayAgents(bool){
+}
+void MyGLWidget::DisplayObstacles(bool){
+}
+void MyGLWidget::DisplayInspection(bool){
+}
+void MyGLWidget::DisplayNetFlow(bool){
+}
+void MyGLWidget::DisplayDensity(bool){
+}
+void MyGLWidget::SetCardinality(int){
+}
+
+//WEDGE SLOTS
+//Shifting Radial Boundaries
+void MyGLWidget::WedgeSelectLeft(bool){
+}
+void MyGLWidget::WedgeSelectRight(bool){
+}
+void MyGLWidget::WedgeClockwise(){
+}
+void MyGLWidget::WedgeCounterClockwise(){
+}
+void MyGLWidget::WedgeSetDegrees(int){
+}
+
+//Shifting Arc-Aligned Boundaries
+void MyGLWidget::WedgeSelectNear(bool){
+}
+void MyGLWidget::WedgeSelectFar(bool){
+}
+void MyGLWidget::WedgeCloser(){
+}
+void MyGLWidget::WedgeFarther(){
+}
+void MyGLWidget::WedgeSetDistance(double){
 }
