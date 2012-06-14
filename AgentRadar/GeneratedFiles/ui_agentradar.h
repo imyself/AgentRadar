@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'agentradar.ui'
 **
-** Created: Thu Jun 14 17:15:20 2012
+** Created: Thu Jun 14 19:26:19 2012
 **      by: Qt User Interface Compiler version 4.8.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -19,7 +19,6 @@
 #include <QtGui/QFrame>
 #include <QtGui/QHeaderView>
 #include <QtGui/QLabel>
-#include <QtGui/QListWidget>
 #include <QtGui/QMainWindow>
 #include <QtGui/QMenuBar>
 #include <QtGui/QPushButton>
@@ -30,6 +29,7 @@
 #include <QtGui/QToolBar>
 #include <QtGui/QWidget>
 #include "myglwidget.h"
+#include "qList.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -72,7 +72,7 @@ public:
     QLabel *label_11;
     QLabel *label_12;
     QLabel *label_13;
-    QListWidget *listWidget;
+    qList *listWidget;
     QLabel *label_14;
     QSpinBox *spinBox_3;
     QLabel *label_15;
@@ -205,7 +205,7 @@ public:
         label_13 = new QLabel(tab);
         label_13->setObjectName(QString::fromUtf8("label_13"));
         label_13->setGeometry(QRect(530, 40, 46, 16));
-        listWidget = new QListWidget(tab);
+        listWidget = new qList(tab);
         listWidget->setObjectName(QString::fromUtf8("listWidget"));
         listWidget->setGeometry(QRect(310, 100, 61, 211));
         label_14 = new QLabel(tab);
@@ -252,6 +252,26 @@ public:
         AgentRadarClass->setStatusBar(statusBar);
 
         retranslateUi(AgentRadarClass);
+        QObject::connect(checkBox_6, SIGNAL(clicked(bool)), widget, SLOT(WedgeSelectNear(bool)));
+        QObject::connect(checkBox_7, SIGNAL(clicked(bool)), widget, SLOT(WedgeSelectFar(bool)));
+        QObject::connect(checkBox, SIGNAL(clicked(bool)), widget, SLOT(WedgeSelectLeft(bool)));
+        QObject::connect(checkBox_2, SIGNAL(clicked(bool)), widget, SLOT(WedgeSelectRight(bool)));
+        QObject::connect(pushButton, SIGNAL(clicked()), widget, SLOT(WedgeClockwise()));
+        QObject::connect(pushButton_2, SIGNAL(clicked()), widget, SLOT(WedgeCounterClockwise()));
+        QObject::connect(pushButton_3, SIGNAL(clicked()), widget, SLOT(WedgeCloser()));
+        QObject::connect(pushButton_4, SIGNAL(clicked()), widget, SLOT(WedgeFarther()));
+        QObject::connect(checkBox, SIGNAL(clicked(bool)), widget, SLOT(DisplayAgents(bool)));
+        QObject::connect(checkBox_2, SIGNAL(clicked(bool)), widget, SLOT(DisplayObstacles(bool)));
+        QObject::connect(checkBox_3, SIGNAL(clicked(bool)), widget, SLOT(DisplayInspection(bool)));
+        QObject::connect(checkBox_4, SIGNAL(clicked(bool)), widget, SLOT(DisplayNetFlow(bool)));
+        QObject::connect(checkBox_5, SIGNAL(clicked(bool)), widget, SLOT(DisplayDensity(bool)));
+        QObject::connect(spinBox, SIGNAL(valueChanged(int)), widget, SLOT(SetCardinality(int)));
+        QObject::connect(spinBox_2, SIGNAL(valueChanged(int)), widget, SLOT(WedgeSetDegrees(int)));
+        QObject::connect(doubleSpinBox, SIGNAL(valueChanged(double)), widget, SLOT(WedgeSetDistance(double)));
+        QObject::connect(radioButton, SIGNAL(clicked()), widget, SLOT(SetTypeWedges()));
+        QObject::connect(radioButton_2, SIGNAL(clicked()), widget, SLOT(SetTypeRectangles()));
+        QObject::connect(spinBox_4, SIGNAL(valueChanged(int)), widget, SLOT(SetNumberSectors(int)));
+        QObject::connect(pushButton_5, SIGNAL(clicked()), widget, SLOT(MergeSelectedSectors()));
 
         tabWidget->setCurrentIndex(0);
 

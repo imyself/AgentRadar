@@ -3,6 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AgentRadar", "AgentRadar\AgentRadar.vcxproj", "{2401DE1F-9A7E-4A71-B58C-9EF47463D5E4}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E8208273-5573-43A7-8198-188DEDF7F2E6}"
+	ProjectSection(SolutionItems) = preProject
+		AgentRadar\qList.cpp = AgentRadar\qList.cpp
+		AgentRadar\qList.h = AgentRadar\qList.h
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
