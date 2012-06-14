@@ -23,7 +23,7 @@ Sector::~Sector()
 {
 }
 
-bool Sector::IntersectionTest(float x, float y){
+bool Sector::IntersectionTest(float x, float y, float max_distance){
 	return false;
 }
 

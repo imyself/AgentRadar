@@ -1,4 +1,4 @@
-﻿Build started 6/14/2012 5:02:40 PM.
+﻿Build started 6/14/2012 6:23:53 PM.
      1>Project "C:\Users\Adam\AgentRadar\AgentRadar\AgentRadar.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating "Debug\AgentRadar.unsuccessfulbuild" because "AlwaysCreate" was specified.
@@ -28,4 +28,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:02.15
+Time Elapsed 00:00:02.08
