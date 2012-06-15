@@ -98,8 +98,10 @@ void MyGLWidget::Render(Sector* s){
 			//Color
 			if(w->selected)
 				glColor3f(0.3,1,0.3);
-			else
+			else if(w->agents || w->obstacles || w->inspection || w->net_flow || w->density)
 				glColor3f(1,0.3,0.3);
+			else
+				glColor3f(0.5,0.5,0.5);
 			//Far right bound
 			glm::vec4 p(w->far_bound/max_distance, 0, 1, 1);
 			p = glm::rotate(glm::mat4(1.0f), (float)w->right_bound, glm::vec3(0,0,1)) * p;

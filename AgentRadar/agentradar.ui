@@ -606,6 +606,7 @@
    <header>myglwidget.h</header>
    <container>1</container>
    <slots>
+    <signal>SendSnappingPoint(QListWidgetItem*)</signal>
     <slot>WedgeSelectLeft(bool)</slot>
     <slot>WedgeSelectRight(bool)</slot>
     <slot>WedgeSelectNear(bool)</slot>
@@ -632,6 +633,9 @@
    <class>qList</class>
    <extends>QListWidget</extends>
    <header>qList.h</header>
+   <slots>
+    <slot>AddToList(QListWidgetItem*)</slot>
+   </slots>
   </customwidget>
  </customwidgets>
  <resources>
@@ -678,7 +682,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>30</x>
-     <y>514</y>
+     <y>89</y>
     </hint>
     <hint type="destinationlabel">
      <x>268</x>
@@ -693,8 +697,8 @@
    <slot>WedgeSelectRight(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>147</x>
-     <y>511</y>
+     <x>89</x>
+     <y>109</y>
     </hint>
     <hint type="destinationlabel">
      <x>268</x>
@@ -955,6 +959,22 @@
     <hint type="destinationlabel">
      <x>263</x>
      <y>336</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>widget</sender>
+   <signal>SendSnappingPoint(QListWidgetItem*)</signal>
+   <receiver>listWidget</receiver>
+   <slot>AddToList(QListWidgetItem*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>428</x>
+     <y>366</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>348</x>
+     <y>618</y>
     </hint>
    </hints>
   </connection>

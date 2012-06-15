@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'agentradar.ui'
 **
-** Created: Thu Jun 14 19:19:18 2012
+** Created: Thu Jun 14 19:43:06 2012
 **      by: Qt User Interface Compiler version 4.8.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -272,6 +272,7 @@ public:
         QObject::connect(radioButton_2, SIGNAL(clicked()), widget, SLOT(SetTypeRectangles()));
         QObject::connect(spinBox_4, SIGNAL(valueChanged(int)), widget, SLOT(SetNumberSectors(int)));
         QObject::connect(pushButton_5, SIGNAL(clicked()), widget, SLOT(MergeSelectedSectors()));
+        QObject::connect(widget, SIGNAL(SendSnappingPoint(QListWidgetItem*)), listWidget, SLOT(AddToList(QListWidgetItem*)));
 
         tabWidget->setCurrentIndex(0);
 
