@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'myglwidget.h'
 **
-** Created: Thu Jun 14 21:24:30 2012
+** Created: Thu Jun 14 22:35:35 2012
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.0)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_MyGLWidget[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-      31,   14, // methods
+      35,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -64,6 +64,10 @@ static const uint qt_meta_data_MyGLWidget[] = {
      663,   11,   11,   11, 0x0a,
      677,   11,   11,   11, 0x0a,
      692,   11,   11,   11, 0x0a,
+     717,   11,   11,   11, 0x0a,
+     749,   11,   11,   11, 0x0a,
+     758,   11,   11,   11, 0x0a,
+     770,   11,   11,   11, 0x0a,
 
        0        // eod
 };
@@ -87,6 +91,8 @@ static const char qt_meta_stringdata_MyGLWidget[] = {
     "WedgeSetDegrees(int)\0WedgeSelectNear(bool)\0"
     "WedgeSelectFar(bool)\0WedgeCloser()\0"
     "WedgeFarther()\0WedgeSetDistance(double)\0"
+    "SetCurrentArc(QListWidgetItem*)\0"
+    "AddArc()\0RemoveArc()\0CallUpdateGL()\0"
 };
 
 void MyGLWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -126,6 +132,10 @@ void MyGLWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 28: _t->WedgeCloser(); break;
         case 29: _t->WedgeFarther(); break;
         case 30: _t->WedgeSetDistance((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 31: _t->SetCurrentArc((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
+        case 32: _t->AddArc(); break;
+        case 33: _t->RemoveArc(); break;
+        case 34: _t->CallUpdateGL(); break;
         default: ;
         }
     }
@@ -163,9 +173,9 @@ int MyGLWidget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 31)
+        if (_id < 35)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 31;
+        _id -= 35;
     }
     return _id;
 }

@@ -663,6 +663,10 @@
     <slot>SetTypeRectangles()</slot>
     <slot>SetNumberSectors(int)</slot>
     <slot>MergeSelectedSectors()</slot>
+    <slot>CallUpdateGL()</slot>
+    <slot>AddArc()</slot>
+    <slot>RemoveArc()</slot>
+    <slot>SetCurrentArc(QListWidgetItem*)</slot>
    </slots>
   </customwidget>
   <customwidget>
@@ -670,8 +674,12 @@
    <extends>QListWidget</extends>
    <header>qList.h</header>
    <slots>
+    <signal>SendValue(int)</signal>
     <slot>AddToList(QListWidgetItem*)</slot>
     <slot>ClearList()</slot>
+    <slot>ArcValueChanged(QString)</slot>
+    <slot>AccessValue(QListWidgetItem*)</slot>
+    <slot>RemoveFromList()</slot>
    </slots>
   </customwidget>
  </customwidgets>
@@ -1172,6 +1180,134 @@
     <hint type="destinationlabel">
      <x>81</x>
      <y>157</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox_3</sender>
+   <signal>valueChanged(QString)</signal>
+   <receiver>listWidget</receiver>
+   <slot>ArcValueChanged(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>411</x>
+     <y>654</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>375</x>
+     <y>653</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>listWidget</sender>
+   <signal>itemClicked(QListWidgetItem*)</signal>
+   <receiver>listWidget</receiver>
+   <slot>AccessValue(QListWidgetItem*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>363</x>
+     <y>630</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>326</x>
+     <y>691</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>listWidget</sender>
+   <signal>SendValue(int)</signal>
+   <receiver>spinBox_3</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>360</x>
+     <y>668</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>404</x>
+     <y>661</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox_3</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>widget</receiver>
+   <slot>CallUpdateGL()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>437</x>
+     <y>659</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>452</x>
+     <y>410</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_6</sender>
+   <signal>clicked()</signal>
+   <receiver>widget</receiver>
+   <slot>AddArc()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>460</x>
+     <y>675</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>473</x>
+     <y>437</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_7</sender>
+   <signal>clicked()</signal>
+   <receiver>widget</receiver>
+   <slot>RemoveArc()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>434</x>
+     <y>719</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>433</x>
+     <y>433</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>listWidget</sender>
+   <signal>itemClicked(QListWidgetItem*)</signal>
+   <receiver>widget</receiver>
+   <slot>SetCurrentArc(QListWidgetItem*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>322</x>
+     <y>581</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>359</x>
+     <y>438</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_7</sender>
+   <signal>clicked()</signal>
+   <receiver>listWidget</receiver>
+   <slot>RemoveFromList()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>415</x>
+     <y>717</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>378</x>
+     <y>712</y>
     </hint>
    </hints>
   </connection>

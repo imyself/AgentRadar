@@ -4,6 +4,7 @@
 #include <QMouseEvent>
 #include <QListWidget>
 #include <vector>
+#include "qList.h"
 //#include <glut.h>
 #include "Sector.h"
 
@@ -16,6 +17,7 @@ public:
 	//Variables
 	vector<Sector*> sectors;
 	vector<Sector*> selected_sectors;//Hopefully removal != deletion
+	QListWidgetItem* current_arc;
 
 	float max_distance;//Keep track of the largest wedge/rectangle for sizing the shapes in the viewport
 
@@ -63,6 +65,12 @@ public slots:
 	void WedgeCloser();
 	void WedgeFarther();
 	void WedgeSetDistance(double);
+
+	void SetCurrentArc(QListWidgetItem*);
+	void AddArc();
+	void RemoveArc();
+
+	void CallUpdateGL();
 
 signals:
 	void SendSnappingPoint(QListWidgetItem*);
