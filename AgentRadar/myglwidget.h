@@ -23,6 +23,9 @@ public:
 	//Functions
 	void mousePressEvent(QMouseEvent* e);
 	void ToggleSelected(Sector*);
+
+	void DisplayPreviousSectorData(Sector* s);
+	void DisplayCurrentSectorData(Sector* s);
 	void Render(Sector*);
 	void UpdateMaxDistance();
 
@@ -63,6 +66,17 @@ public slots:
 
 signals:
 	void SendSnappingPoint(QListWidgetItem*);
+	void ClearSnappingPoint();
+	void SendWedgeLeftBound(double);
+	void SendWedgeRightBound(double);
+	void SendWedgeUpperBound(double);
+	void SendWedgeLowerBound(double);
+
+	void SendAgentStatus(bool);
+	void SendObstaclesStatus(bool);
+	void SendInspectionStatus(bool);
+	void SendNetFlowStatus(bool);
+	void SendDensityStatus(bool);
 
 
 };

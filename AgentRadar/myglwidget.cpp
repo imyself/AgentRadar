@@ -18,21 +18,66 @@ void MyGLWidget::mousePressEvent(QMouseEvent* e){
 }
 
 void MyGLWidget::ToggleSelected(Sector* s){
-	//Clear the QListWidget
+	emit ClearSnappingPoint();
 	for(unsigned int i = 0; i < selected_sectors.size(); i++){
 		if(selected_sectors[i] == s){
 			s->selected = false;
 			selected_sectors.erase(selected_sectors.begin() + i);
-			//Get the last Sector* in sel_secs if we're dealing with Wedges and send all its snapping pts to the QListWidget
+			DisplayPreviousSectorData(s);
 			return;
 		}
 	}
 	selected_sectors.push_back(s);
 	s->selected = true;
-	if(s->GetType()==1){
-		for(unsigned int i = 0; i < dynamic_cast<Wedge*>(s)->snapping_points.size(); i++){
-			emit SendSnappingPoint(dynamic_cast<Wedge*>(s)->snapping_points[i]);
+	DisplayCurrentSectorData(s);
+}
+
+void MyGLWidget::DisplayPreviousSectorData(Sector* s){
+	if (s->GetType() == 1){
+		if (selected_sectors.size() != 0){
+			Wedge* w = dynamic_cast<Wedge*>(selected_sectors[selected_sectors.size()-1]);
+			for(unsigned int j = 0; j < w->snapping_points.size(); j++){
+				emit SendSnappingPoint(w->snapping_points[j]);
+			}
+			emit SendWedgeLeftBound(w->left_bound);
+			emit SendWedgeRightBound(w->right_bound);
+			emit SendWedgeUpperBound(w->far_bound);
+			emit SendWedgeLowerBound(w->near_bound);
+			emit SendAgentStatus(s->agents);
+			emit SendObstaclesStatus(s->obstacles);
+			emit SendInspectionStatus(s->inspection);
+			emit SendNetFlowStatus(s->net_flow);
+			emit SendDensityStatus(s->density);
 		}
+		else{
+			emit SendWedgeLeftBound(0);
+			emit SendWedgeRightBound(0);
+			emit SendWedgeUpperBound(0);
+			emit SendWedgeLowerBound(0);
+			emit SendAgentStatus(false);
+			emit SendObstaclesStatus(false);
+			emit SendInspectionStatus(false);
+			emit SendNetFlowStatus(false);
+			emit SendDensityStatus(false);
+		}
+	}
+
+}
+void MyGLWidget::DisplayCurrentSectorData(Sector* s){
+	if(s->GetType()==1){
+		Wedge* w = dynamic_cast<Wedge*>(s);
+		for(unsigned int i = 0; i < w->snapping_points.size(); i++){
+			emit SendSnappingPoint(w->snapping_points[i]);
+		}
+		emit SendWedgeLeftBound(w->left_bound);
+		emit SendWedgeRightBound(w->right_bound);
+		emit SendWedgeUpperBound(w->far_bound);
+		emit SendWedgeLowerBound(w->near_bound);
+		emit SendAgentStatus(s->agents);
+		emit SendObstaclesStatus(s->obstacles);
+		emit SendInspectionStatus(s->inspection);
+		emit SendNetFlowStatus(s->net_flow);
+		emit SendDensityStatus(s->density);
 	}
 }
 

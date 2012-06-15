@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'agentradar.ui'
 **
-** Created: Thu Jun 14 19:19:18 2012
+** Created: Thu Jun 14 21:31:11 2012
 **      by: Qt User Interface Compiler version 4.8.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -76,6 +76,8 @@ public:
     QLabel *label_14;
     QSpinBox *spinBox_3;
     QLabel *label_15;
+    QPushButton *pushButton_6;
+    QPushButton *pushButton_7;
     QWidget *tab_2;
     QPushButton *pushButton_5;
     QRadioButton *radioButton;
@@ -90,7 +92,7 @@ public:
     {
         if (AgentRadarClass->objectName().isEmpty())
             AgentRadarClass->setObjectName(QString::fromUtf8("AgentRadarClass"));
-        AgentRadarClass->resize(679, 819);
+        AgentRadarClass->resize(673, 819);
         centralWidget = new QWidget(AgentRadarClass);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         widget = new MyGLWidget(centralWidget);
@@ -218,6 +220,12 @@ public:
         label_15 = new QLabel(tab);
         label_15->setObjectName(QString::fromUtf8("label_15"));
         label_15->setGeometry(QRect(390, 150, 71, 16));
+        pushButton_6 = new QPushButton(tab);
+        pushButton_6->setObjectName(QString::fromUtf8("pushButton_6"));
+        pushButton_6->setGeometry(QRect(390, 200, 75, 23));
+        pushButton_7 = new QPushButton(tab);
+        pushButton_7->setObjectName(QString::fromUtf8("pushButton_7"));
+        pushButton_7->setGeometry(QRect(390, 230, 75, 23));
         tabWidget->addTab(tab, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QString::fromUtf8("tab_2"));
@@ -242,7 +250,7 @@ public:
         AgentRadarClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(AgentRadarClass);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 679, 21));
+        menuBar->setGeometry(QRect(0, 0, 673, 21));
         AgentRadarClass->setMenuBar(menuBar);
         mainToolBar = new QToolBar(AgentRadarClass);
         mainToolBar->setObjectName(QString::fromUtf8("mainToolBar"));
@@ -272,6 +280,17 @@ public:
         QObject::connect(radioButton_2, SIGNAL(clicked()), widget, SLOT(SetTypeRectangles()));
         QObject::connect(spinBox_4, SIGNAL(valueChanged(int)), widget, SLOT(SetNumberSectors(int)));
         QObject::connect(pushButton_5, SIGNAL(clicked()), widget, SLOT(MergeSelectedSectors()));
+        QObject::connect(widget, SIGNAL(SendSnappingPoint(QListWidgetItem*)), listWidget, SLOT(AddToList(QListWidgetItem*)));
+        QObject::connect(widget, SIGNAL(ClearSnappingPoint()), listWidget, SLOT(ClearList()));
+        QObject::connect(widget, SIGNAL(SendWedgeLeftBound(double)), label_10, SLOT(setNum(double)));
+        QObject::connect(widget, SIGNAL(SendWedgeLowerBound(double)), label_12, SLOT(setNum(double)));
+        QObject::connect(widget, SIGNAL(SendWedgeUpperBound(double)), label_13, SLOT(setNum(double)));
+        QObject::connect(widget, SIGNAL(SendWedgeRightBound(double)), label_11, SLOT(setNum(double)));
+        QObject::connect(widget, SIGNAL(SendAgentStatus(bool)), checkBox, SLOT(setChecked(bool)));
+        QObject::connect(widget, SIGNAL(SendObstaclesStatus(bool)), checkBox_2, SLOT(setChecked(bool)));
+        QObject::connect(widget, SIGNAL(SendInspectionStatus(bool)), checkBox_3, SLOT(setChecked(bool)));
+        QObject::connect(widget, SIGNAL(SendNetFlowStatus(bool)), checkBox_4, SLOT(setChecked(bool)));
+        QObject::connect(widget, SIGNAL(SendDensityStatus(bool)), checkBox_5, SLOT(setChecked(bool)));
 
         tabWidget->setCurrentIndex(0);
 
@@ -310,6 +329,8 @@ public:
         label_13->setText(QApplication::translate("AgentRadarClass", "0", 0, QApplication::UnicodeUTF8));
         label_14->setText(QApplication::translate("AgentRadarClass", "Snapping Arcs", 0, QApplication::UnicodeUTF8));
         label_15->setText(QApplication::translate("AgentRadarClass", "Arc Position", 0, QApplication::UnicodeUTF8));
+        pushButton_6->setText(QApplication::translate("AgentRadarClass", "Add Arc", 0, QApplication::UnicodeUTF8));
+        pushButton_7->setText(QApplication::translate("AgentRadarClass", "Remove Arc", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("AgentRadarClass", "Wedges", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("AgentRadarClass", "Rectangles", 0, QApplication::UnicodeUTF8));
         pushButton_5->setText(QApplication::translate("AgentRadarClass", "Merge Selected Sectors", 0, QApplication::UnicodeUTF8));

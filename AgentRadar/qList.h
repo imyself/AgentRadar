@@ -1,5 +1,6 @@
 #pragma once
 #include<QListWidget>
+#include<sstream>
 
 class SnappingPoint:public QListWidgetItem
 {
@@ -18,6 +19,6 @@ public:
 
 public slots:
 	void AddToList(QListWidgetItem* a);
-	
+	void ClearList();
 };
 
