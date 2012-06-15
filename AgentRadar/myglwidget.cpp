@@ -1,5 +1,6 @@
 #include "myglwidget.h"
 #include "Wedge.h"
+#include "Rect.h"
 #include "glm/gtc/matrix_transform.hpp"
 
 MyGLWidget::MyGLWidget(QWidget* parent) : QGLWidget(parent) {
@@ -94,12 +95,17 @@ void MyGLWidget::initializeGL(){
 	//glPushMatrix();
 	//glLoadIdentity();
 
+	/*
 	sectors.push_back(new Wedge());
 	sectors.push_back(new Wedge(180, 120, 10, 100));
 	sectors.push_back(new Wedge(240, 180, 10, 100));
 	sectors.push_back(new Wedge(300, 240, 10, 100));
 	sectors.push_back(new Wedge(360, 300, 10, 100));
 	sectors.push_back(new Wedge(60, 0, 10, 100));
+	*/
+
+	sectors.push_back(new Rect());
+
 	//Update max distance
 	max_distance = 0;
 	UpdateMaxDistance();
@@ -112,7 +118,25 @@ void MyGLWidget::UpdateMaxDistance(){
 				max_distance = dynamic_cast<Wedge*>(sectors[i])->far_bound;
 		}
 		else if(sectors[i]->GetType() == 2){
-			//Max distance for rectangles
+			Rect* r = dynamic_cast<Rect*>(sectors[i]);
+			float d = 0;
+			//Get distance of each corner from origin and compare to max_distance
+			//Lower left
+			glm::vec2 p(r->left_edge, r->bottom_edge);
+			if((d = glm::distance(p, glm::vec2(0,0))) > max_distance)
+				max_distance = d;
+			//Upper left
+			p = glm::vec2(r->left_edge, r->top_edge);
+			if((d = glm::distance(p, glm::vec2(0,0))) > max_distance)
+				max_distance = d;
+			//Upper right
+			p = glm::vec2(r->right_edge, r->top_edge);
+			if((d = glm::distance(p, glm::vec2(0,0))) > max_distance)
+				max_distance = d;
+			//Lower right
+			p = glm::vec2(r->right_edge, r->bottom_edge);
+			if((d = glm::distance(p, glm::vec2(0,0))) > max_distance)
+				max_distance = d;
 		}
 	}
 }
@@ -217,7 +241,36 @@ void MyGLWidget::Render(Sector* s){
 	}
 	//Rectangle
 	else if(s->GetType() == 2){
-		;
+		Rect* r = dynamic_cast<Rect*>(s);
+		//Draw the body of the rect
+		glBegin(GL_POLYGON);
+			//Color
+			if(r->agents || r->obstacles || r->inspection || r->net_flow || r->density){
+				if(r->selected)
+					glColor3f(0.3,1,0.3);
+				else 
+					glColor3f(1,0.3,0.3);
+			}
+			else{
+				if(r->selected)
+					glColor3f(0,0.3,0);
+				else
+					glColor3f(0.2,0.2,0.2);
+			}
+			//Four corners
+			//Lower Left
+			glm::vec2 p(r->left_edge, r->bottom_edge); p/= max_distance;
+			glVertex2f(p.x, p.y);
+			//Upper left
+			p = glm::vec2(r->left_edge, r->top_edge) / max_distance;
+			glVertex2f(p.x, p.y);
+			//Upper right
+			p = glm::vec2(r->right_edge, r->top_edge) / max_distance;
+			glVertex2f(p.x, p.y);
+			//Lower right
+			p = glm::vec2(r->right_edge, r->bottom_edge) / max_distance;
+			glVertex2f(p.x, p.y);
+		glEnd();
 	}
 }
 

@@ -1,7 +1,7 @@
 #include "Rect.h"
 
 
-Rect::Rect(void)
+Rect::Rect(void) : Sector()
 {
 	left_edge = 0;
 	right_edge = 10;

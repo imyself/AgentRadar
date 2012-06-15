@@ -1,5 +1,9 @@
 #pragma once
-class Rect
+
+#include "Sector.h"
+
+
+class Rect : public Sector
 {
 public:
 	Rect(void);
