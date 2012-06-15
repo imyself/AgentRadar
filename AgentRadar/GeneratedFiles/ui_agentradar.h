@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'agentradar.ui'
 **
-** Created: Thu Jun 14 21:40:13 2012
+** Created: Thu Jun 14 22:35:35 2012
 **      by: Qt User Interface Compiler version 4.8.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -291,6 +291,14 @@ public:
         QObject::connect(widget, SIGNAL(SendInspectionStatus(bool)), checkBox_3, SLOT(setChecked(bool)));
         QObject::connect(widget, SIGNAL(SendNetFlowStatus(bool)), checkBox_4, SLOT(setChecked(bool)));
         QObject::connect(widget, SIGNAL(SendDensityStatus(bool)), checkBox_5, SLOT(setChecked(bool)));
+        QObject::connect(spinBox_3, SIGNAL(valueChanged(QString)), listWidget, SLOT(ArcValueChanged(QString)));
+        QObject::connect(listWidget, SIGNAL(itemClicked(QListWidgetItem*)), listWidget, SLOT(AccessValue(QListWidgetItem*)));
+        QObject::connect(listWidget, SIGNAL(SendValue(int)), spinBox_3, SLOT(setValue(int)));
+        QObject::connect(spinBox_3, SIGNAL(valueChanged(int)), widget, SLOT(CallUpdateGL()));
+        QObject::connect(pushButton_6, SIGNAL(clicked()), widget, SLOT(AddArc()));
+        QObject::connect(pushButton_7, SIGNAL(clicked()), widget, SLOT(RemoveArc()));
+        QObject::connect(listWidget, SIGNAL(itemClicked(QListWidgetItem*)), widget, SLOT(SetCurrentArc(QListWidgetItem*)));
+        QObject::connect(pushButton_7, SIGNAL(clicked()), listWidget, SLOT(RemoveFromList()));
 
         tabWidget->setCurrentIndex(0);
 

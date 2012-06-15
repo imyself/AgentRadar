@@ -345,3 +345,28 @@ void MyGLWidget::WedgeFarther(){
 }
 void MyGLWidget::WedgeSetDistance(double){
 }
+
+void MyGLWidget::AddArc(){
+	Wedge* w = dynamic_cast<Wedge*>(selected_sectors[selected_sectors.size()-1]);
+	w->snapping_points.push_back(new SnappingPoint(0));
+	for(unsigned int i = 0; i < w->snapping_points.size(); i++){
+		emit SendSnappingPoint(w->snapping_points[i]);
+	}
+	updateGL();
+}
+void MyGLWidget::SetCurrentArc(QListWidgetItem* q){
+	current_arc = q;
+}
+void MyGLWidget::RemoveArc(){
+	Wedge* w = dynamic_cast<Wedge*>(selected_sectors[selected_sectors.size()-1]);
+	for (unsigned int i = 0; i < w->snapping_points.size(); i++){
+		if (w->snapping_points[i] == dynamic_cast<SnappingPoint*>(current_arc)){
+			w->snapping_points.erase(w->snapping_points.begin() + i);
+		}
+	}
+	updateGL();
+}
+
+void MyGLWidget::CallUpdateGL(){
+	updateGL();
+}
