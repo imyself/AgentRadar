@@ -43,11 +43,11 @@ void MyGLWidget::DisplayPreviousSectorData(Sector* s){
 			emit SendWedgeRightBound(w->right_bound);
 			emit SendWedgeUpperBound(w->far_bound);
 			emit SendWedgeLowerBound(w->near_bound);
-			emit SendAgentStatus(s->agents);
-			emit SendObstaclesStatus(s->obstacles);
-			emit SendInspectionStatus(s->inspection);
-			emit SendNetFlowStatus(s->net_flow);
-			emit SendDensityStatus(s->density);
+			emit SendAgentStatus(w->agents);
+			emit SendObstaclesStatus(w->obstacles);
+			emit SendInspectionStatus(w->inspection);
+			emit SendNetFlowStatus(w->net_flow);
+			emit SendDensityStatus(w->density);
 		}
 		else{
 			emit SendWedgeLeftBound(0);
@@ -73,11 +73,11 @@ void MyGLWidget::DisplayCurrentSectorData(Sector* s){
 		emit SendWedgeRightBound(w->right_bound);
 		emit SendWedgeUpperBound(w->far_bound);
 		emit SendWedgeLowerBound(w->near_bound);
-		emit SendAgentStatus(s->agents);
-		emit SendObstaclesStatus(s->obstacles);
-		emit SendInspectionStatus(s->inspection);
-		emit SendNetFlowStatus(s->net_flow);
-		emit SendDensityStatus(s->density);
+		emit SendAgentStatus(w->agents);
+		emit SendObstaclesStatus(w->obstacles);
+		emit SendInspectionStatus(w->inspection);
+		emit SendNetFlowStatus(w->net_flow);
+		emit SendDensityStatus(w->density);
 	}
 }
 
@@ -141,12 +141,18 @@ void MyGLWidget::Render(Sector* s){
 		//Draw the body of the wedge
 		glBegin(GL_POLYGON);
 			//Color
-			if(w->selected)
-				glColor3f(0.3,1,0.3);
-			else if(w->agents || w->obstacles || w->inspection || w->net_flow || w->density)
-				glColor3f(1,0.3,0.3);
-			else
-				glColor3f(0.5,0.5,0.5);
+			if(w->agents || w->obstacles || w->inspection || w->net_flow || w->density){
+				if(w->selected)
+					glColor3f(0.3,1,0.3);
+				else 
+					glColor3f(1,0.3,0.3);
+			}
+			else{
+				if(w->selected)
+					glColor3f(0,0.3,0);
+				else
+					glColor3f(0.2,0.2,0.2);
+			}
 			//Far right bound
 			glm::vec4 p(w->far_bound/max_distance, 0, 1, 1);
 			p = glm::rotate(glm::mat4(1.0f), (float)w->right_bound, glm::vec3(0,0,1)) * p;
@@ -229,15 +235,35 @@ void MyGLWidget::MergeSelectedSectors(){
 }
 
 //FLAGS
-void MyGLWidget::DisplayAgents(bool){
+void MyGLWidget::DisplayAgents(bool b){
+	for(unsigned int i = 0; i < selected_sectors.size(); i++){
+		selected_sectors[i]->agents = b;
+	}
+	updateGL();
 }
-void MyGLWidget::DisplayObstacles(bool){
+void MyGLWidget::DisplayObstacles(bool b){
+	for(unsigned int i = 0; i < selected_sectors.size(); i++){
+		selected_sectors[i]->obstacles = b;
+	}
+	updateGL();
 }
-void MyGLWidget::DisplayInspection(bool){
+void MyGLWidget::DisplayInspection(bool b){
+	for(unsigned int i = 0; i < selected_sectors.size(); i++){
+		selected_sectors[i]->inspection = b;
+	}
+	updateGL();
 }
-void MyGLWidget::DisplayNetFlow(bool){
+void MyGLWidget::DisplayNetFlow(bool b){
+	for(unsigned int i = 0; i < selected_sectors.size(); i++){
+		selected_sectors[i]->net_flow = b;
+	}
+	updateGL();
 }
-void MyGLWidget::DisplayDensity(bool){
+void MyGLWidget::DisplayDensity(bool b){
+	for(unsigned int i = 0; i < selected_sectors.size(); i++){
+		selected_sectors[i]->density = b;
+	}
+	updateGL();
 }
 void MyGLWidget::SetCardinality(int){
 }
