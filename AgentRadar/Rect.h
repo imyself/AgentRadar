@@ -7,6 +7,7 @@ class Rect : public Sector
 {
 public:
 	Rect(void);
+	Rect(float lb, float rb, float ub, float bb);
 	~Rect(void);
 
 	//Variables

@@ -34,6 +34,7 @@ Wedge::Wedge(int lb, int rb, float nb, float fb, bool a, bool o, bool i, bool nf
 
 Wedge::~Wedge()
 {
+	snapping_points.clear();
 }
 
 bool Wedge::IntersectionTest(float x, float y, float max_distance){

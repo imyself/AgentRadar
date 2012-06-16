@@ -122,13 +122,13 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
       <string>Wedges</string>
      </attribute>
-     <widget class="QCheckBox" name="checkBox">
+     <widget class="QCheckBox" name="LeftArcCheckbox">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -141,7 +141,7 @@
        <string>Left Edge</string>
       </property>
      </widget>
-     <widget class="QCheckBox" name="checkBox_2">
+     <widget class="QCheckBox" name="RightArcCheckbox">
       <property name="geometry">
        <rect>
         <x>80</x>
@@ -321,6 +321,9 @@
         <width>62</width>
         <height>22</height>
        </rect>
+      </property>
+      <property name="value">
+       <double>5.000000000000000</double>
       </property>
      </widget>
      <widget class="QLabel" name="label_6">
@@ -533,6 +536,331 @@
      <attribute name="title">
       <string>Rectangles</string>
      </attribute>
+     <widget class="QLabel" name="label_17">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>101</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Shift L/R Boundaries</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_8">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>30</y>
+        <width>71</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Left Edge</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_9">
+      <property name="geometry">
+       <rect>
+        <x>80</x>
+        <y>30</y>
+        <width>81</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Right Edge</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_8">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>50</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Left</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_9">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>50</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Right</string>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="doubleSpinBox_2">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>80</y>
+        <width>62</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="value">
+       <double>5.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_18">
+      <property name="geometry">
+       <rect>
+        <x>80</x>
+        <y>80</y>
+        <width>81</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Distance shifted</string>
+      </property>
+     </widget>
+     <widget class="Line" name="line_4">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>100</y>
+        <width>151</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_19">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>110</y>
+        <width>101</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Shift T/B Boundaries</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_10">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>130</y>
+        <width>71</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Top Edge</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_11">
+      <property name="geometry">
+       <rect>
+        <x>80</x>
+        <y>130</y>
+        <width>81</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Bottom Edge</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_10">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>150</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Up</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_11">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>150</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Down</string>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="doubleSpinBox_3">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>180</y>
+        <width>62</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="value">
+       <double>5.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_20">
+      <property name="geometry">
+       <rect>
+        <x>80</x>
+        <y>180</y>
+        <width>81</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Distance shifted</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_21">
+      <property name="geometry">
+       <rect>
+        <x>550</x>
+        <y>40</y>
+        <width>46</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>0</string>
+      </property>
+     </widget>
+     <widget class="Line" name="line_5">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>20</y>
+        <width>331</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_25">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>40</y>
+        <width>61</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Right Bound:</string>
+      </property>
+     </widget>
+     <widget class="Line" name="line_6">
+      <property name="geometry">
+       <rect>
+        <x>450</x>
+        <y>10</y>
+        <width>20</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_24">
+      <property name="geometry">
+       <rect>
+        <x>470</x>
+        <y>40</y>
+        <width>71</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Bottom Bound:</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_23">
+      <property name="geometry">
+       <rect>
+        <x>540</x>
+        <y>10</y>
+        <width>46</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>0</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_28">
+      <property name="geometry">
+       <rect>
+        <x>470</x>
+        <y>10</y>
+        <width>61</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Top Bound:</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_22">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>10</y>
+        <width>61</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Left Bound:</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_27">
+      <property name="geometry">
+       <rect>
+        <x>380</x>
+        <y>40</y>
+        <width>46</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>0</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_26">
+      <property name="geometry">
+       <rect>
+        <x>370</x>
+        <y>10</y>
+        <width>46</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>0</string>
+      </property>
+     </widget>
     </widget>
    </widget>
    <widget class="QPushButton" name="pushButton_5">
@@ -603,6 +931,19 @@
      <string>Number of Sectors</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButton_12">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>350</y>
+      <width>131</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Delete Selected Sectors</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -643,6 +984,11 @@
     <signal>SendInspectionStatus(bool)</signal>
     <signal>SendNetFlowStatus(bool)</signal>
     <signal>SendDensityStatus(bool)</signal>
+    <signal>SendRectLeftBound(double)</signal>
+    <signal>SendRectRightBound(double)</signal>
+    <signal>SendRectTopBound(double)</signal>
+    <signal>SendRectBottomBound(double)</signal>
+    <signal>SendCardinality(int)</signal>
     <slot>WedgeSelectLeft(bool)</slot>
     <slot>WedgeSelectRight(bool)</slot>
     <slot>WedgeSelectNear(bool)</slot>
@@ -667,6 +1013,17 @@
     <slot>AddArc()</slot>
     <slot>RemoveArc()</slot>
     <slot>SetCurrentArc(QListWidgetItem*)</slot>
+    <slot>DeleteSectors()</slot>
+    <slot>RectSelectLeft(bool)</slot>
+    <slot>RectSelectRight(bool)</slot>
+    <slot>RectSelectTop(bool)</slot>
+    <slot>RectSelectBottom(bool)</slot>
+    <slot>RectShiftLeft()</slot>
+    <slot>RectShiftRight()</slot>
+    <slot>RectShiftUp()</slot>
+    <slot>RectShiftDown()</slot>
+    <slot>RectSetHorizontal(double)</slot>
+    <slot>RectSetVertical(double)</slot>
    </slots>
   </customwidget>
   <customwidget>
@@ -716,38 +1073,6 @@
     <hint type="destinationlabel">
      <x>263</x>
      <y>404</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>widget</receiver>
-   <slot>WedgeSelectLeft(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>30</x>
-     <y>89</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>268</x>
-     <y>387</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_2</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>widget</receiver>
-   <slot>WedgeSelectRight(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>89</x>
-     <y>109</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>268</x>
-     <y>387</y>
     </hint>
    </hints>
   </connection>
@@ -1308,6 +1633,294 @@
     <hint type="destinationlabel">
      <x>378</x>
      <y>712</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>LeftArcCheckbox</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>widget</receiver>
+   <slot>WedgeSelectLeft(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>65</x>
+     <y>518</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>298</x>
+     <y>279</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>RightArcCheckbox</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>widget</receiver>
+   <slot>WedgeSelectRight(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>145</x>
+     <y>511</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>292</x>
+     <y>296</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_12</sender>
+   <signal>clicked()</signal>
+   <receiver>widget</receiver>
+   <slot>DeleteSectors()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>112</x>
+     <y>398</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>312</x>
+     <y>229</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_8</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>widget</receiver>
+   <slot>RectSelectLeft(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>60</x>
+     <y>515</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>265</x>
+     <y>380</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_9</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>widget</receiver>
+   <slot>RectSelectRight(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>145</x>
+     <y>511</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>270</x>
+     <y>394</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_10</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>widget</receiver>
+   <slot>RectSelectTop(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>59</x>
+     <y>613</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>269</x>
+     <y>411</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_11</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>widget</receiver>
+   <slot>RectSelectBottom(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>156</x>
+     <y>612</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>272</x>
+     <y>422</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_8</sender>
+   <signal>clicked()</signal>
+   <receiver>widget</receiver>
+   <slot>RectShiftLeft()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>67</x>
+     <y>533</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>270</x>
+     <y>362</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_9</sender>
+   <signal>clicked()</signal>
+   <receiver>widget</receiver>
+   <slot>RectShiftRight()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>150</x>
+     <y>533</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>309</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_10</sender>
+   <signal>clicked()</signal>
+   <receiver>widget</receiver>
+   <slot>RectShiftUp()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>68</x>
+     <y>636</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>334</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_11</sender>
+   <signal>clicked()</signal>
+   <receiver>widget</receiver>
+   <slot>RectShiftDown()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>132</x>
+     <y>631</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>352</x>
+     <y>318</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>doubleSpinBox_2</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>widget</receiver>
+   <slot>RectSetHorizontal(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>48</x>
+     <y>571</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>305</x>
+     <y>346</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>doubleSpinBox_3</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>widget</receiver>
+   <slot>RectSetVertical(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>35</x>
+     <y>665</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>298</x>
+     <y>374</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>widget</sender>
+   <signal>SendRectLeftBound(double)</signal>
+   <receiver>label_26</receiver>
+   <slot>setNum(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>382</x>
+     <y>301</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>386</x>
+     <y>490</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>widget</sender>
+   <signal>SendRectRightBound(double)</signal>
+   <receiver>label_27</receiver>
+   <slot>setNum(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>432</x>
+     <y>346</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>409</x>
+     <y>523</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>widget</sender>
+   <signal>SendRectTopBound(double)</signal>
+   <receiver>label_23</receiver>
+   <slot>setNum(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>535</x>
+     <y>354</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>559</x>
+     <y>494</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>widget</sender>
+   <signal>SendRectBottomBound(double)</signal>
+   <receiver>label_21</receiver>
+   <slot>setNum(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>588</x>
+     <y>346</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>572</x>
+     <y>524</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>widget</sender>
+   <signal>SendCardinality(int)</signal>
+   <receiver>spinBox</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>282</x>
+     <y>192</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>57</x>
+     <y>185</y>
     </hint>
    </hints>
   </connection>

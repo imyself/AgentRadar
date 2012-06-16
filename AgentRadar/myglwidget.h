@@ -21,6 +21,17 @@ public:
 
 	float max_distance;//Keep track of the largest wedge/rectangle for sizing the shapes in the viewport
 
+	//Wedge variables
+	bool left_edge, right_edge;
+	bool near_edge, far_edge;
+	int degree_shift;
+	float wedge_shift;
+
+	//Rect variables
+	bool left_side, right_side;
+	bool top_side, bottom_side;
+	float h_shift, v_shift;
+
 
 	//Functions
 	void mousePressEvent(QMouseEvent* e);
@@ -42,6 +53,7 @@ public slots:
 	void SetNumberSectors(int);
 
 	void MergeSelectedSectors();
+	void DeleteSectors();
 
 	//FLAGS
 	void DisplayAgents(bool);
@@ -70,6 +82,22 @@ public slots:
 	void AddArc();
 	void RemoveArc();
 
+	//RECT SLOTS
+	
+	//Shifting Horizontal Boundaries
+	void RectSetHorizontal(double);
+	void RectSelectLeft(bool);
+	void RectSelectRight(bool);
+	void RectShiftLeft();
+	void RectShiftRight();
+
+	//Shifting Vertical Boundaries
+	void RectSetVertical(double);
+	void RectSelectTop(bool);
+	void RectSelectBottom(bool);
+	void RectShiftUp();
+	void RectShiftDown();
+
 	void CallUpdateGL();
 
 signals:
@@ -85,6 +113,12 @@ signals:
 	void SendInspectionStatus(bool);
 	void SendNetFlowStatus(bool);
 	void SendDensityStatus(bool);
+	void SendCardinality(int);
+
+	void SendRectLeftBound(double);
+	void SendRectRightBound(double);
+	void SendRectUpperBound(double);
+	void SendRectLowerBound(double);
 
 
 };

@@ -5,6 +5,12 @@
 
 MyGLWidget::MyGLWidget(QWidget* parent) : QGLWidget(parent) {
 	setFocusPolicy(Qt::ClickFocus);
+	near_edge = far_edge = left_edge = right_edge = false;
+	degree_shift = 5;
+	wedge_shift = 5.0f;
+
+	left_side = right_side = top_side = bottom_side = false;
+	h_shift = v_shift = 5.0f;
 }
 
 void MyGLWidget::mousePressEvent(QMouseEvent* e){
@@ -49,6 +55,7 @@ void MyGLWidget::DisplayPreviousSectorData(Sector* s){
 			emit SendInspectionStatus(w->inspection);
 			emit SendNetFlowStatus(w->net_flow);
 			emit SendDensityStatus(w->density);
+			emit SendCardinality(w->cardinality);
 		}
 		else{
 			emit SendWedgeLeftBound(0);
@@ -60,6 +67,35 @@ void MyGLWidget::DisplayPreviousSectorData(Sector* s){
 			emit SendInspectionStatus(false);
 			emit SendNetFlowStatus(false);
 			emit SendDensityStatus(false);
+			emit SendCardinality(0);
+		}
+	}
+
+	else if (s->GetType() == 2){
+		if (selected_sectors.size() != 0){
+			Rect* w = dynamic_cast<Rect*>(selected_sectors[selected_sectors.size()-1]);
+			emit SendRectLeftBound(w->left_edge);
+			emit SendRectRightBound(w->right_edge);
+			emit SendRectUpperBound(w->top_edge);
+			emit SendRectLowerBound(w->bottom_edge);
+			emit SendAgentStatus(w->agents);
+			emit SendObstaclesStatus(w->obstacles);
+			emit SendInspectionStatus(w->inspection);
+			emit SendNetFlowStatus(w->net_flow);
+			emit SendDensityStatus(w->density);
+			emit SendCardinality(w->cardinality);
+		}
+		else{
+			emit SendRectLeftBound(0);
+			emit SendRectRightBound(0);
+			emit SendRectUpperBound(0);
+			emit SendRectLowerBound(0);
+			emit SendAgentStatus(false);
+			emit SendObstaclesStatus(false);
+			emit SendInspectionStatus(false);
+			emit SendNetFlowStatus(false);
+			emit SendDensityStatus(false);
+			emit SendCardinality(0);
 		}
 	}
 
@@ -79,6 +115,21 @@ void MyGLWidget::DisplayCurrentSectorData(Sector* s){
 		emit SendInspectionStatus(w->inspection);
 		emit SendNetFlowStatus(w->net_flow);
 		emit SendDensityStatus(w->density);
+		emit SendCardinality(w->cardinality);
+	}
+
+	else if (s->GetType() == 2){
+		Rect* w = dynamic_cast<Rect*>(s);
+		emit SendRectLeftBound(w->left_edge);
+		emit SendRectRightBound(w->right_edge);
+		emit SendRectUpperBound(w->top_edge);
+		emit SendRectLowerBound(w->bottom_edge);
+		emit SendAgentStatus(w->agents);
+		emit SendObstaclesStatus(w->obstacles);
+		emit SendInspectionStatus(w->inspection);
+		emit SendNetFlowStatus(w->net_flow);
+		emit SendDensityStatus(w->density);
+		emit SendCardinality(w->cardinality);
 	}
 }
 
@@ -87,6 +138,8 @@ void MyGLWidget::initializeGL(){
 	//glEnable(GL_DEPTH_TEST);
 	glClearDepth(1.0);
 	glDepthFunc(GL_LEQUAL);
+	glEnable(GL_POINT_SMOOTH);
+	glPointSize(10.0f);
 
 	//glMatrixMode(GL_PROJECTION);
 	//glOrtho(-10, 10, -10, 10, -1, 1);
@@ -112,6 +165,7 @@ void MyGLWidget::initializeGL(){
 }
 
 void MyGLWidget::UpdateMaxDistance(){
+	max_distance = 0;
 	for(unsigned int i = 0; i < sectors.size(); i++){
 		if(sectors[i]->GetType() == 1){
 			if(max_distance < dynamic_cast<Wedge*>(sectors[i])->far_bound)
@@ -156,12 +210,60 @@ void MyGLWidget::paintGL(){
 	for(unsigned int i = 0; i < sectors.size(); i++){
 		Render(sectors[i]);
 	}
+	glBegin(GL_POINTS);
+		glColor3f(1,1,0);
+		glVertex2f(0,0);
+	glEnd();
 }
 
 void MyGLWidget::Render(Sector* s){
 	//Wedge
 	if(s->GetType() == 1){
 		Wedge* w = dynamic_cast<Wedge*>(s);
+		std::vector<glm::vec2> far_v; std::vector<glm::vec2> near_v;
+		
+		glm::vec4 p_f(w->far_bound/max_distance, 0, 1, 1);
+		glm::vec4 p_n(w->near_bound/max_distance, 0, 1, 1);
+		p_f = glm::rotate(glm::mat4(1.0f), (float)w->right_bound, glm::vec3(0,0,1)) * p_f;
+		p_n = glm::rotate(glm::mat4(1.0f), (float)w->right_bound, glm::vec3(0,0,1)) * p_n;
+		far_v.push_back(glm::vec2(p_f.x, p_f.y));
+		near_v.push_back(glm::vec2(p_n.x, p_n.y));
+		//Rotate FRB by 5 degrees until reach FLB
+		int angle = w->right_bound;
+		while(angle < w->left_bound){
+			angle = min(angle + 5, w->left_bound);
+			p_f = glm::vec4(w->far_bound/max_distance, 0, 1, 1);
+			p_f = glm::rotate(glm::mat4(1.0f), (float)angle, glm::vec3(0,0,1)) * p_f;
+			far_v.push_back(glm::vec2(p_f.x, p_f.y));
+			p_n = glm::vec4(w->near_bound/max_distance, 0, 1, 1);
+			p_n = glm::rotate(glm::mat4(1.0f), (float)angle, glm::vec3(0,0,1)) * p_n;
+			near_v.push_back(glm::vec2(p_n.x, p_n.y));
+		}
+
+		glBegin(GL_TRIANGLE_STRIP);
+			//Color
+			if(w->agents || w->obstacles || w->inspection || w->net_flow || w->density){
+				if(w->selected)
+					glColor3f(0.3,1,0.3);
+				else 
+					glColor3f(1,0.3,0.3);
+			}
+			else{
+				if(w->selected)
+					glColor3f(0,0.3,0);
+				else
+					glColor3f(0.2,0.2,0.2);
+			}
+			for(unsigned int i = 0; i < far_v.size(); i++){
+				glVertex2f(far_v[i].x, far_v[i].y);
+				glVertex2f(near_v[i].x, near_v[i].y);
+			}
+		glEnd();
+
+
+
+
+		/*
 		//Draw the body of the wedge
 		glBegin(GL_POLYGON);
 			//Color
@@ -201,7 +303,7 @@ void MyGLWidget::Render(Sector* s){
 				p = glm::rotate(glm::mat4(1.0f), (float)angle, glm::vec3(0,0,1)) * p;
 				glVertex2f(p.x, p.y);
 			}
-		glEnd();
+		glEnd();*/
 		//Draw the outline of the wedge
 		glBegin(GL_LINES);
 		//Right line
@@ -224,7 +326,7 @@ void MyGLWidget::Render(Sector* s){
 		//Draw the snapping points
 		for(unsigned int i = 0; i < w->snapping_points.size(); i++){
 			float s = w->snapping_points[i]->position / max_distance;
-			p = glm::vec4(s, 0, 1, 1);
+			glm::vec4 p = glm::vec4(s, 0, 1, 1);
 			glBegin(GL_LINE_STRIP);
 				glColor3f(0,0,1);
 				p = glm::rotate(glm::mat4(1.0f), (float)w->right_bound, glm::vec3(0,0,1)) * p;
@@ -287,6 +389,25 @@ void MyGLWidget::SetNumberSectors(int){
 void MyGLWidget::MergeSelectedSectors(){
 }
 
+void MyGLWidget::DeleteSectors(){
+	Sector* to_delete = new Sector[selected_sectors.size()];
+	Sector* s = 0;
+	if(selected_sectors.size() > 0){
+		s = selected_sectors[0];
+	}
+	for(unsigned int i = 0; i < selected_sectors.size(); i++){
+		for(unsigned int j = 0; j < sectors.size(); j++){
+			if(selected_sectors[i] == sectors[j])
+				sectors.erase(sectors.begin() + j);
+		}
+	}
+	selected_sectors.clear();
+	if(s != 0)
+		DisplayPreviousSectorData(s);
+	delete [] to_delete;
+	updateGL();
+}
+
 //FLAGS
 void MyGLWidget::DisplayAgents(bool b){
 	for(unsigned int i = 0; i < selected_sectors.size(); i++){
@@ -318,54 +439,248 @@ void MyGLWidget::DisplayDensity(bool b){
 	}
 	updateGL();
 }
-void MyGLWidget::SetCardinality(int){
+void MyGLWidget::SetCardinality(int c){
+	for(unsigned int i = 0; i < selected_sectors.size(); i++){
+		selected_sectors[i]->cardinality = c;
+	}
+	updateGL();
 }
 
 //WEDGE SLOTS
 //Shifting Radial Boundaries
-void MyGLWidget::WedgeSelectLeft(bool){
+void MyGLWidget::WedgeSelectLeft(bool b){
+	left_edge = b;
 }
-void MyGLWidget::WedgeSelectRight(bool){
+void MyGLWidget::WedgeSelectRight(bool b){
+	right_edge = b;
 }
 void MyGLWidget::WedgeClockwise(){
+	for(unsigned int i = 0; i < selected_sectors.size(); i++){
+		//Make sure we're typesafe
+		if(selected_sectors[i]->GetType() == 1){
+			Wedge* w = dynamic_cast<Wedge*>(selected_sectors[i]);
+			float diff = w->left_bound - w->right_bound;
+			if(left_edge){
+				/*Wedge* w_l = 0;//Initialize as null since it may never be initialized.
+				for(unsigned int j = 0; j < sectors.size(); j++){
+					if(dynamic_cast<Wedge*>(sectors[j])->right_bound == w->left_bound)
+						w_l = dynamic_cast<Wedge*>(sectors[j]);
+				}*/
+				w->left_bound -= degree_shift;
+				if((w->left_bound - w->right_bound) / diff <= 0)
+					w->left_bound += degree_shift;
+				SendWedgeLeftBound(w->left_bound);
+				/*if(w_l != 0){
+					w_l->right_bound -= degree_shift;
+				}*/
+			}
+			if(right_edge){
+				/*Wedge* w_r = 0;//Initialize as null since it may never be initialized.
+				for(unsigned int j = 0; j < sectors.size(); j++){
+					if(dynamic_cast<Wedge*>(sectors[j])->left_bound == w->right_bound)
+						w_r = dynamic_cast<Wedge*>(sectors[j]);
+				}*/
+				w->right_bound -= degree_shift;
+				if((w->left_bound - w->right_bound) / diff <= 0)
+					w->right_bound += degree_shift;
+				SendWedgeRightBound(w->right_bound);
+				/*if(w_r != 0){
+					w_r->left_bound -= degree_shift;
+				}*/
+			}
+			w->sweep = w->ComputeSweep(w->left_bound, w->right_bound);
+		}
+	}
+	updateGL();
 }
 void MyGLWidget::WedgeCounterClockwise(){
+	for(unsigned int i = 0; i < selected_sectors.size(); i++){
+		//Make sure we're typesafe
+		if(selected_sectors[i]->GetType() == 1){
+			Wedge* w = dynamic_cast<Wedge*>(selected_sectors[i]);
+			float diff = w->left_bound - w->right_bound;
+			if(left_edge){
+				/*Wedge* w_l = 0;//Initialize as null since it may never be initialized.
+				for(unsigned int j = 0; j < sectors.size(); j++){
+					if(dynamic_cast<Wedge*>(sectors[j])->right_bound == w->left_bound)
+						w_l = dynamic_cast<Wedge*>(sectors[j]);
+				}*/
+				w->left_bound += degree_shift;
+				if((w->left_bound - w->right_bound) / diff <= 0)
+					w->left_bound += degree_shift;
+				SendWedgeLeftBound(w->left_bound);
+				/*if(w_l != 0){
+					int diff = w_l->right_bound - w_l->left_bound;
+					w_l->right_bound += degree_shift;
+					//Check if bounds overlapped or swapped sides
+					if((w_l->right_bound - w_l->left_bound) / diff <= 0){
+						//Delete w_l from sel_secs if there and from sectors. Remove its snappng points from the list if they're there.
+						if(selected_sectors[selected_sectors.size() - 1] == w_l)
+							//Display previous sector data
+							;
+						RemoveFromVectors(w_l);//Remove w_l from sectors and selected_sectors
+					}
+				}*/
+			}
+			if(right_edge){
+				/*Wedge* w_r = 0;//Initialize as null since it may never be initialized.
+				for(unsigned int j = 0; j < ectors.size(); j++){
+					if(dynamic_cast<Wedge*>(sectors[j])->left_bound == w->right_bound)
+						w_r = dynamic_cast<Wedge*>(sectors[j]);
+				}*/
+				w->right_bound += degree_shift;
+				if((w->left_bound - w->right_bound) / diff <= 0)
+					w->right_bound += degree_shift;
+				SendWedgeRightBound(w->right_bound);
+				/*if(w_r != 0){
+					w_r->left_bound += degree_shift;
+				}*/
+			}
+			w->sweep = w->ComputeSweep(w->left_bound, w->right_bound);
+		}
+	}
+	updateGL();
 }
-void MyGLWidget::WedgeSetDegrees(int){
+void MyGLWidget::WedgeSetDegrees(int d){
+	degree_shift = d;
 }
 
 //Shifting Arc-Aligned Boundaries
-void MyGLWidget::WedgeSelectNear(bool){
+void MyGLWidget::WedgeSelectNear(bool b){
+	near_edge = b;
 }
-void MyGLWidget::WedgeSelectFar(bool){
+void MyGLWidget::WedgeSelectFar(bool b){
+	far_edge = b;
 }
 void MyGLWidget::WedgeCloser(){
+	for(unsigned int i = 0; i < selected_sectors.size(); i++){
+		//Make sure we're typesafe
+		if(selected_sectors[i]->GetType() == 1){
+			Wedge* w = dynamic_cast<Wedge*>(selected_sectors[i]);
+			if(near_edge){
+				w->near_bound = max(w->near_bound - wedge_shift, 0.0f);
+				SendWedgeLowerBound(w->near_bound);
+			}
+			if(far_edge){
+				w->far_bound = max(w->far_bound - wedge_shift, 0.0f);
+				if(w->far_bound <= w->near_bound)
+					w->far_bound = w->near_bound + 1;
+				SendWedgeUpperBound(w->far_bound);
+			}
+		}
+	}
+	UpdateMaxDistance();
+	updateGL();
 }
 void MyGLWidget::WedgeFarther(){
+	for(unsigned int i = 0; i < selected_sectors.size(); i++){
+		//Make sure we're typesafe
+		if(selected_sectors[i]->GetType() == 1){
+			Wedge* w = dynamic_cast<Wedge*>(selected_sectors[i]);
+			if(near_edge){
+				w->near_bound = w->near_bound + wedge_shift;
+				if(w->far_bound <= w->near_bound)
+					w->near_bound = w->far_bound - 1;
+				SendWedgeLowerBound(w->near_bound);
+			}
+			if(far_edge){
+				w->far_bound = w->far_bound + wedge_shift;
+				SendWedgeUpperBound(w->far_bound);
+			}
+		}
+	}
+	UpdateMaxDistance();
+	updateGL();
 }
-void MyGLWidget::WedgeSetDistance(double){
+void MyGLWidget::WedgeSetDistance(double d){
+	wedge_shift = d;
 }
 
 void MyGLWidget::AddArc(){
-	Wedge* w = dynamic_cast<Wedge*>(selected_sectors[selected_sectors.size()-1]);
-	w->snapping_points.push_back(new SnappingPoint(0));
-	for(unsigned int i = 0; i < w->snapping_points.size(); i++){
-		emit SendSnappingPoint(w->snapping_points[i]);
+	if(selected_sectors.size() > 0){
+		if(selected_sectors[0]->GetType() == 1){
+			Wedge* w = dynamic_cast<Wedge*>(selected_sectors[selected_sectors.size()-1]);
+			w->snapping_points.push_back(new SnappingPoint(0));
+			for(unsigned int i = 0; i < w->snapping_points.size(); i++){
+				emit SendSnappingPoint(w->snapping_points[i]);
+			}
+			updateGL();
+		}
 	}
-	updateGL();
 }
 void MyGLWidget::SetCurrentArc(QListWidgetItem* q){
 	current_arc = q;
 }
 void MyGLWidget::RemoveArc(){
-	Wedge* w = dynamic_cast<Wedge*>(selected_sectors[selected_sectors.size()-1]);
-	for (unsigned int i = 0; i < w->snapping_points.size(); i++){
-		if (w->snapping_points[i] == dynamic_cast<SnappingPoint*>(current_arc)){
-			w->snapping_points.erase(w->snapping_points.begin() + i);
+	if(selected_sectors.size() > 0){
+		if(selected_sectors[0]->GetType() == 1){
+			Wedge* w = dynamic_cast<Wedge*>(selected_sectors[selected_sectors.size()-1]);
+			for (unsigned int i = 0; i < w->snapping_points.size(); i++){
+				if (w->snapping_points[i] == dynamic_cast<SnappingPoint*>(current_arc)){
+					w->snapping_points.erase(w->snapping_points.begin() + i);
+				}
+			}
+			updateGL();
 		}
 	}
+}
+
+void MyGLWidget::RectSetHorizontal(double d){
+	h_shift = d;
+}
+
+void MyGLWidget::RectSelectLeft(bool b){
+	left_side = b;
+}
+void MyGLWidget::RectSelectRight(bool b){
+	right_side = b;
+}
+void MyGLWidget::RectShiftLeft(){
+	for(unsigned int i = 0; i < selected_sectors.size(); i++){
+		//Make sure we're typesafe
+		if(selected_sectors[i]->GetType() == 2){
+			Rect* r = dynamic_cast<Rect*>(selected_sectors[i]);
+			if(left_side){
+				r->left_edge -= h_shift;
+				SendRectLeftBound(r->left_edge);
+			}
+			if(right_side){
+				r->right_edge -= h_shift;
+				if(r->right_edge <= r->left_edge)
+					r->right_edge = r->left_edge + 1;
+				SendRectRightBound(r->right_edge);
+			}
+		}
+	}
+	UpdateMaxDistance();
 	updateGL();
 }
+void MyGLWidget::RectShiftRight(){
+	for(unsigned int i = 0; i < selected_sectors.size(); i++){
+		//Make sure we're typesafe
+		if(selected_sectors[i]->GetType() == 2){
+			Rect* r = dynamic_cast<Rect*>(selected_sectors[i]);
+			if(left_side){
+				r->left_edge += h_shift;
+				if(r->right_edge <= r->left_edge)
+					r->left_edge = r->right_edge - 1;
+				SendRectLeftBound(r->left_edge);
+			}
+			if(right_side){
+				r->right_edge += h_shift;
+				SendRectRightBound(r->right_edge);
+			}
+		}
+	}
+	UpdateMaxDistance();
+	updateGL();
+}
+
+void MyGLWidget::RectSetVertical(double){}
+void MyGLWidget::RectSelectTop(bool){}
+void MyGLWidget::RectSelectBottom(bool){}
+void MyGLWidget::RectShiftUp(){}
+void MyGLWidget::RectShiftDown(){}
 
 void MyGLWidget::CallUpdateGL(){
 	updateGL();
