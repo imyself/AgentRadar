@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'agentradar.ui'
 **
-** Created: Sun Jun 17 17:48:24 2012
+** Created: Sun Jun 17 18:36:04 2012
 **      by: Qt User Interface Compiler version 4.8.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -104,7 +104,6 @@ public:
     QLabel *label_22;
     QLabel *label_27;
     QLabel *label_26;
-    QPushButton *pushButton_5;
     QRadioButton *radioButton;
     QRadioButton *radioButton_2;
     QSpinBox *spinBox_4;
@@ -353,9 +352,6 @@ public:
         label_26->setObjectName(QString::fromUtf8("label_26"));
         label_26->setGeometry(QRect(370, 10, 46, 16));
         tabWidget->addTab(tab_2, QString());
-        pushButton_5 = new QPushButton(centralWidget);
-        pushButton_5->setObjectName(QString::fromUtf8("pushButton_5"));
-        pushButton_5->setGeometry(QRect(20, 380, 131, 23));
         radioButton = new QRadioButton(centralWidget);
         radioButton->setObjectName(QString::fromUtf8("radioButton"));
         radioButton->setGeometry(QRect(10, 180, 82, 17));
@@ -373,16 +369,16 @@ public:
         label_16->setGeometry(QRect(150, 180, 91, 21));
         pushButton_12 = new QPushButton(centralWidget);
         pushButton_12->setObjectName(QString::fromUtf8("pushButton_12"));
-        pushButton_12->setGeometry(QRect(20, 350, 131, 23));
+        pushButton_12->setGeometry(QRect(20, 360, 131, 23));
         pushButton_13 = new QPushButton(centralWidget);
         pushButton_13->setObjectName(QString::fromUtf8("pushButton_13"));
-        pushButton_13->setGeometry(QRect(20, 320, 131, 23));
+        pushButton_13->setGeometry(QRect(20, 330, 131, 23));
         pushButton_14 = new QPushButton(centralWidget);
         pushButton_14->setObjectName(QString::fromUtf8("pushButton_14"));
         pushButton_14->setGeometry(QRect(100, 210, 141, 23));
         pushButton_15 = new QPushButton(centralWidget);
         pushButton_15->setObjectName(QString::fromUtf8("pushButton_15"));
-        pushButton_15->setGeometry(QRect(160, 350, 75, 23));
+        pushButton_15->setGeometry(QRect(160, 380, 75, 23));
         allflagson = new QPushButton(centralWidget);
         allflagson->setObjectName(QString::fromUtf8("allflagson"));
         allflagson->setGeometry(QRect(130, 40, 75, 23));
@@ -394,7 +390,7 @@ public:
         selectall->setGeometry(QRect(160, 320, 75, 23));
         deselectall = new QPushButton(centralWidget);
         deselectall->setObjectName(QString::fromUtf8("deselectall"));
-        deselectall->setGeometry(QRect(160, 380, 75, 23));
+        deselectall->setGeometry(QRect(160, 350, 75, 23));
         line_7 = new QFrame(centralWidget);
         line_7->setObjectName(QString::fromUtf8("line_7"));
         line_7->setGeometry(QRect(10, 160, 241, 16));
@@ -416,10 +412,10 @@ public:
         line_9->setFrameShadow(QFrame::Sunken);
         pushButton_16 = new QPushButton(centralWidget);
         pushButton_16->setObjectName(QString::fromUtf8("pushButton_16"));
-        pushButton_16->setGeometry(QRect(20, 260, 75, 23));
+        pushButton_16->setGeometry(QRect(40, 260, 75, 23));
         savexmlfile = new QPushButton(centralWidget);
         savexmlfile->setObjectName(QString::fromUtf8("savexmlfile"));
-        savexmlfile->setGeometry(QRect(110, 260, 75, 23));
+        savexmlfile->setGeometry(QRect(130, 260, 75, 23));
         AgentRadarClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(AgentRadarClass);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
@@ -450,7 +446,6 @@ public:
         QObject::connect(radioButton, SIGNAL(clicked()), widget, SLOT(SetTypeWedges()));
         QObject::connect(radioButton_2, SIGNAL(clicked()), widget, SLOT(SetTypeRectangles()));
         QObject::connect(spinBox_4, SIGNAL(valueChanged(int)), widget, SLOT(SetNumberSectors(int)));
-        QObject::connect(pushButton_5, SIGNAL(clicked()), widget, SLOT(MergeSelectedSectors()));
         QObject::connect(widget, SIGNAL(SendSnappingPoint(QListWidgetItem*)), listWidget, SLOT(AddToList(QListWidgetItem*)));
         QObject::connect(widget, SIGNAL(ClearSnappingPoint()), listWidget, SLOT(ClearList()));
         QObject::connect(widget, SIGNAL(SendWedgeLeftBound(double)), label_10, SLOT(setNum(double)));
@@ -571,7 +566,6 @@ public:
         label_27->setText(QApplication::translate("AgentRadarClass", "0", 0, QApplication::UnicodeUTF8));
         label_26->setText(QApplication::translate("AgentRadarClass", "0", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("AgentRadarClass", "Rectangles", 0, QApplication::UnicodeUTF8));
-        pushButton_5->setText(QApplication::translate("AgentRadarClass", "Merge Selected Sectors", 0, QApplication::UnicodeUTF8));
         radioButton->setText(QApplication::translate("AgentRadarClass", "Wedges", 0, QApplication::UnicodeUTF8));
         radioButton_2->setText(QApplication::translate("AgentRadarClass", "Rectangles", 0, QApplication::UnicodeUTF8));
         label_16->setText(QApplication::translate("AgentRadarClass", "Number of Sectors", 0, QApplication::UnicodeUTF8));

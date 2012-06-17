@@ -1,0 +1,32 @@
+Keyboard Shortcuts:
+
+A/D: Toggle left and right boundaries of sectors for moving
+W/S: Toggle upper and lower boundaries of sectors for moving
+
+Left/Right: Move a sector CCW/CW or left and right, depending on sector type
+Up/Down: Move a sector up or down
+
+Backspace/Delete: Remove the selected sector(s)
+Shift + Backspace/Delete: Remove all sectors
+
+Ctrl + S: Save an XML file.
+Ctrl + L: Load an XML file.
+
+Notes:
+
+The yellow circle represents the agent's position relative to its scanning sectors.
+
+The view automatically resizes to encompass all sectors when a sector is altered.
+
+All sectors are click-selectable.
+
+A wedge's sides may go beyond 360 degrees in position, since rolling over to 0 degrees messed up wedge selection.
+
+A wedge's left side MUST have a position larger (more counterclockwise) than its right side's position.
+Likewise, a rectangle's L/R sides should have the left side be smaller than the right and its T/B sides should have the bottom side be lower than the top side in absolute value.
+
+While it is possible to have both wedges and rectangles in the same scene, doing so may have unknown side effects since we never tested the two together and some code bits assume a scene only has one type of sector.
+
+A sector with all of its flags set to false will be grey when unselected and dark green when selected.
+
+A wedge's snapping arcs appear as blue lines.

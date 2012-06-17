@@ -863,19 +863,6 @@
      </widget>
     </widget>
    </widget>
-   <widget class="QPushButton" name="pushButton_5">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>380</y>
-      <width>131</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Merge Selected Sectors</string>
-    </property>
-   </widget>
    <widget class="QRadioButton" name="radioButton">
     <property name="geometry">
      <rect>
@@ -938,7 +925,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>350</y>
+      <y>360</y>
       <width>131</width>
       <height>23</height>
      </rect>
@@ -951,7 +938,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>320</y>
+      <y>330</y>
       <width>131</width>
       <height>23</height>
      </rect>
@@ -977,7 +964,7 @@
     <property name="geometry">
      <rect>
       <x>160</x>
-      <y>350</y>
+      <y>380</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -1029,7 +1016,7 @@
     <property name="geometry">
      <rect>
       <x>160</x>
-      <y>380</y>
+      <y>350</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -1096,7 +1083,7 @@
    <widget class="QPushButton" name="pushButton_16">
     <property name="geometry">
      <rect>
-      <x>20</x>
+      <x>40</x>
       <y>260</y>
       <width>75</width>
       <height>23</height>
@@ -1109,7 +1096,7 @@
    <widget class="QPushButton" name="savexmlfile">
     <property name="geometry">
      <rect>
-      <x>110</x>
+      <x>130</x>
       <y>260</y>
       <width>75</width>
       <height>23</height>
@@ -1507,22 +1494,6 @@
     <hint type="destinationlabel">
      <x>293</x>
      <y>128</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pushButton_5</sender>
-   <signal>clicked()</signal>
-   <receiver>widget</receiver>
-   <slot>MergeSelectedSectors()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>108</x>
-     <y>430</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>263</x>
-     <y>336</y>
     </hint>
    </hints>
   </connection>
