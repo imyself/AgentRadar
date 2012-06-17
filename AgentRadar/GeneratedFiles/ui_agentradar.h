@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'agentradar.ui'
 **
-** Created: Sun Jun 17 12:09:38 2012
+** Created: Sun Jun 17 16:51:23 2012
 **      by: Qt User Interface Compiler version 4.8.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -115,6 +115,13 @@ public:
     QPushButton *pushButton_15;
     QPushButton *allflagson;
     QPushButton *allflagsoff;
+    QPushButton *selectall;
+    QPushButton *deselectall;
+    QFrame *line_7;
+    QFrame *line_8;
+    QLabel *label_29;
+    QFrame *line_9;
+    QPushButton *pushButton_16;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -123,7 +130,7 @@ public:
     {
         if (AgentRadarClass->objectName().isEmpty())
             AgentRadarClass->setObjectName(QString::fromUtf8("AgentRadarClass"));
-        AgentRadarClass->resize(673, 819);
+        AgentRadarClass->resize(674, 819);
         centralWidget = new QWidget(AgentRadarClass);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         widget = new MyGLWidget(centralWidget);
@@ -293,10 +300,10 @@ public:
         label_19->setGeometry(QRect(10, 110, 101, 16));
         checkBox_10 = new QCheckBox(tab_2);
         checkBox_10->setObjectName(QString::fromUtf8("checkBox_10"));
-        checkBox_10->setGeometry(QRect(10, 130, 71, 17));
+        checkBox_10->setGeometry(QRect(100, 130, 71, 17));
         checkBox_11 = new QCheckBox(tab_2);
         checkBox_11->setObjectName(QString::fromUtf8("checkBox_11"));
-        checkBox_11->setGeometry(QRect(80, 130, 81, 17));
+        checkBox_11->setGeometry(QRect(10, 130, 81, 17));
         pushButton_10 = new QPushButton(tab_2);
         pushButton_10->setObjectName(QString::fromUtf8("pushButton_10"));
         pushButton_10->setGeometry(QRect(10, 150, 75, 23));
@@ -350,19 +357,19 @@ public:
         pushButton_5->setGeometry(QRect(20, 380, 131, 23));
         radioButton = new QRadioButton(centralWidget);
         radioButton->setObjectName(QString::fromUtf8("radioButton"));
-        radioButton->setGeometry(QRect(10, 220, 82, 17));
+        radioButton->setGeometry(QRect(10, 180, 82, 17));
         radioButton->setChecked(true);
         radioButton_2 = new QRadioButton(centralWidget);
         radioButton_2->setObjectName(QString::fromUtf8("radioButton_2"));
-        radioButton_2->setGeometry(QRect(10, 240, 82, 17));
+        radioButton_2->setGeometry(QRect(10, 200, 82, 17));
         spinBox_4 = new QSpinBox(centralWidget);
         spinBox_4->setObjectName(QString::fromUtf8("spinBox_4"));
-        spinBox_4->setGeometry(QRect(100, 220, 42, 22));
+        spinBox_4->setGeometry(QRect(100, 180, 42, 22));
         spinBox_4->setMinimum(1);
         spinBox_4->setValue(8);
         label_16 = new QLabel(centralWidget);
         label_16->setObjectName(QString::fromUtf8("label_16"));
-        label_16->setGeometry(QRect(150, 220, 91, 21));
+        label_16->setGeometry(QRect(150, 180, 91, 21));
         pushButton_12 = new QPushButton(centralWidget);
         pushButton_12->setObjectName(QString::fromUtf8("pushButton_12"));
         pushButton_12->setGeometry(QRect(20, 350, 131, 23));
@@ -371,7 +378,7 @@ public:
         pushButton_13->setGeometry(QRect(20, 320, 131, 23));
         pushButton_14 = new QPushButton(centralWidget);
         pushButton_14->setObjectName(QString::fromUtf8("pushButton_14"));
-        pushButton_14->setGeometry(QRect(100, 250, 141, 23));
+        pushButton_14->setGeometry(QRect(100, 210, 141, 23));
         pushButton_15 = new QPushButton(centralWidget);
         pushButton_15->setObjectName(QString::fromUtf8("pushButton_15"));
         pushButton_15->setGeometry(QRect(160, 350, 75, 23));
@@ -381,10 +388,38 @@ public:
         allflagsoff = new QPushButton(centralWidget);
         allflagsoff->setObjectName(QString::fromUtf8("allflagsoff"));
         allflagsoff->setGeometry(QRect(130, 70, 75, 23));
+        selectall = new QPushButton(centralWidget);
+        selectall->setObjectName(QString::fromUtf8("selectall"));
+        selectall->setGeometry(QRect(160, 320, 75, 23));
+        deselectall = new QPushButton(centralWidget);
+        deselectall->setObjectName(QString::fromUtf8("deselectall"));
+        deselectall->setGeometry(QRect(160, 380, 75, 23));
+        line_7 = new QFrame(centralWidget);
+        line_7->setObjectName(QString::fromUtf8("line_7"));
+        line_7->setGeometry(QRect(10, 160, 241, 16));
+        line_7->setFrameShape(QFrame::HLine);
+        line_7->setFrameShadow(QFrame::Sunken);
+        line_8 = new QFrame(centralWidget);
+        line_8->setObjectName(QString::fromUtf8("line_8"));
+        line_8->setGeometry(QRect(10, 230, 241, 16));
+        line_8->setFrameShape(QFrame::HLine);
+        line_8->setFrameShadow(QFrame::Sunken);
+        label_29 = new QLabel(centralWidget);
+        label_29->setObjectName(QString::fromUtf8("label_29"));
+        label_29->setGeometry(QRect(20, 10, 221, 16));
+        label_29->setAlignment(Qt::AlignCenter);
+        line_9 = new QFrame(centralWidget);
+        line_9->setObjectName(QString::fromUtf8("line_9"));
+        line_9->setGeometry(QRect(10, 300, 241, 16));
+        line_9->setFrameShape(QFrame::HLine);
+        line_9->setFrameShadow(QFrame::Sunken);
+        pushButton_16 = new QPushButton(centralWidget);
+        pushButton_16->setObjectName(QString::fromUtf8("pushButton_16"));
+        pushButton_16->setGeometry(QRect(90, 260, 75, 23));
         AgentRadarClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(AgentRadarClass);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 673, 21));
+        menuBar->setGeometry(QRect(0, 0, 674, 21));
         AgentRadarClass->setMenuBar(menuBar);
         mainToolBar = new QToolBar(AgentRadarClass);
         mainToolBar->setObjectName(QString::fromUtf8("mainToolBar"));
@@ -457,6 +492,18 @@ public:
         QObject::connect(pushButton_15, SIGNAL(clicked()), widget, SLOT(DeleteAllSectors()));
         QObject::connect(allflagson, SIGNAL(clicked()), widget, SLOT(AllFlagsOn()));
         QObject::connect(allflagsoff, SIGNAL(clicked()), widget, SLOT(AllFlagsOff()));
+        QObject::connect(widget, SIGNAL(ClickWedgeLeft()), LeftArcCheckbox, SLOT(click()));
+        QObject::connect(widget, SIGNAL(ClickWedgeRight()), RightArcCheckbox, SLOT(click()));
+        QObject::connect(widget, SIGNAL(ClickWedgeNear()), checkBox_6, SLOT(click()));
+        QObject::connect(widget, SIGNAL(ClickWedgeFar()), checkBox_7, SLOT(click()));
+        QObject::connect(widget, SIGNAL(ClickRectLeft()), checkBox_8, SLOT(click()));
+        QObject::connect(widget, SIGNAL(ClickRectRight()), checkBox_9, SLOT(click()));
+        QObject::connect(widget, SIGNAL(ClickRectTop()), checkBox_10, SLOT(click()));
+        QObject::connect(widget, SIGNAL(ClickRectBottom()), checkBox_11, SLOT(click()));
+        QObject::connect(selectall, SIGNAL(clicked()), widget, SLOT(SelectAllSectors()));
+        QObject::connect(deselectall, SIGNAL(clicked()), widget, SLOT(DeselectAll()));
+        QObject::connect(pushButton_16, SIGNAL(clicked()), widget, SLOT(LoadXML()));
+        QObject::connect(spinBox_3, SIGNAL(valueChanged(int)), widget, SLOT(UpdateStoredArcPos(int)));
 
         tabWidget->setCurrentIndex(0);
 
@@ -529,6 +576,10 @@ public:
         pushButton_15->setText(QApplication::translate("AgentRadarClass", "Delete All", 0, QApplication::UnicodeUTF8));
         allflagson->setText(QApplication::translate("AgentRadarClass", "All Flags On", 0, QApplication::UnicodeUTF8));
         allflagsoff->setText(QApplication::translate("AgentRadarClass", "All Flags Off", 0, QApplication::UnicodeUTF8));
+        selectall->setText(QApplication::translate("AgentRadarClass", "Select All", 0, QApplication::UnicodeUTF8));
+        deselectall->setText(QApplication::translate("AgentRadarClass", "Deselect All", 0, QApplication::UnicodeUTF8));
+        label_29->setText(QApplication::translate("AgentRadarClass", "Flags", 0, QApplication::UnicodeUTF8));
+        pushButton_16->setText(QApplication::translate("AgentRadarClass", "Load XML File", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

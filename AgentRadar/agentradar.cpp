@@ -29,3 +29,7 @@ void AgentRadar::SetWedgesBool(bool b){
 void AgentRadar::GetGLWidget(MyGLWidget* g){
 	gl_widget = g;
 }
+
+void AgentRadar::keyPressEvent(QKeyEvent* e){
+	gl_widget->keyPressEvent(e);
+}

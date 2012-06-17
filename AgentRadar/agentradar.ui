@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>673</width>
+    <width>674</width>
     <height>819</height>
    </rect>
   </property>
@@ -656,7 +656,7 @@
      <widget class="QCheckBox" name="checkBox_10">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>100</x>
         <y>130</y>
         <width>71</width>
         <height>17</height>
@@ -669,7 +669,7 @@
      <widget class="QCheckBox" name="checkBox_11">
       <property name="geometry">
        <rect>
-        <x>80</x>
+        <x>10</x>
         <y>130</y>
         <width>81</width>
         <height>17</height>
@@ -880,7 +880,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>220</y>
+      <y>180</y>
       <width>82</width>
       <height>17</height>
      </rect>
@@ -896,7 +896,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>240</y>
+      <y>200</y>
       <width>82</width>
       <height>17</height>
      </rect>
@@ -909,7 +909,7 @@
     <property name="geometry">
      <rect>
       <x>100</x>
-      <y>220</y>
+      <y>180</y>
       <width>42</width>
       <height>22</height>
      </rect>
@@ -925,7 +925,7 @@
     <property name="geometry">
      <rect>
       <x>150</x>
-      <y>220</y>
+      <y>180</y>
       <width>91</width>
       <height>21</height>
      </rect>
@@ -964,7 +964,7 @@
     <property name="geometry">
      <rect>
       <x>100</x>
-      <y>250</y>
+      <y>210</y>
       <width>141</width>
       <height>23</height>
      </rect>
@@ -1012,13 +1012,107 @@
      <string>All Flags Off</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="selectall">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>320</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Select All</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="deselectall">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>380</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Deselect All</string>
+    </property>
+   </widget>
+   <widget class="Line" name="line_7">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>160</y>
+      <width>241</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="Line" name="line_8">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>230</y>
+      <width>241</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_29">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>10</y>
+      <width>221</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Flags</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="Line" name="line_9">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>300</y>
+      <width>241</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_16">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>260</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Load XML File</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>673</width>
+     <width>674</width>
      <height>21</height>
     </rect>
    </property>
@@ -1058,6 +1152,14 @@
     <signal>SendRectBottomBound(double)</signal>
     <signal>SendCardinality(int)</signal>
     <signal>SendMyself(MyGLWidget*)</signal>
+    <signal>ClickWedgeLeft()</signal>
+    <signal>ClickWedgeRight()</signal>
+    <signal>ClickWedgeNear()</signal>
+    <signal>ClickWedgeFar()</signal>
+    <signal>ClickRectLeft()</signal>
+    <signal>ClickRectRight()</signal>
+    <signal>ClickRectTop()</signal>
+    <signal>ClickRectBottom()</signal>
     <slot>WedgeSelectLeft(bool)</slot>
     <slot>WedgeSelectRight(bool)</slot>
     <slot>WedgeSelectNear(bool)</slot>
@@ -1098,6 +1200,10 @@
     <slot>DeleteAllSectors()</slot>
     <slot>AllFlagsOn()</slot>
     <slot>AllFlagsOff()</slot>
+    <slot>SelectAllSectors()</slot>
+    <slot>DeselectAll()</slot>
+    <slot>LoadXML()</slot>
+    <slot>UpdateStoredArcPos(int)</slot>
    </slots>
   </customwidget>
   <customwidget>
@@ -1350,7 +1456,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>55</x>
-     <y>269</y>
+     <y>229</y>
     </hint>
     <hint type="destinationlabel">
      <x>262</x>
@@ -1366,7 +1472,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>55</x>
-     <y>289</y>
+     <y>249</y>
     </hint>
     <hint type="destinationlabel">
      <x>290</x>
@@ -1382,7 +1488,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>130</x>
-     <y>274</y>
+     <y>234</y>
     </hint>
     <hint type="destinationlabel">
      <x>293</x>
@@ -1797,7 +1903,7 @@
    <slot>RectSelectTop(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>59</x>
+     <x>149</x>
      <y>613</y>
     </hint>
     <hint type="destinationlabel">
@@ -1813,7 +1919,7 @@
    <slot>RectSelectBottom(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>156</x>
+     <x>86</x>
      <y>612</y>
     </hint>
     <hint type="destinationlabel">
@@ -2022,7 +2128,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>78</x>
-     <y>269</y>
+     <y>229</y>
     </hint>
     <hint type="destinationlabel">
      <x>239</x>
@@ -2054,7 +2160,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>175</x>
-     <y>297</y>
+     <y>257</y>
     </hint>
     <hint type="destinationlabel">
      <x>314</x>
@@ -2070,7 +2176,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>65</x>
-     <y>259</y>
+     <y>219</y>
     </hint>
     <hint type="destinationlabel">
      <x>348</x>
@@ -2123,6 +2229,198 @@
     <hint type="destinationlabel">
      <x>324</x>
      <y>111</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>widget</sender>
+   <signal>ClickWedgeLeft()</signal>
+   <receiver>LeftArcCheckbox</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>401</x>
+     <y>324</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>73</x>
+     <y>508</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>widget</sender>
+   <signal>ClickWedgeRight()</signal>
+   <receiver>RightArcCheckbox</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>294</x>
+     <y>350</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>153</x>
+     <y>511</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>widget</sender>
+   <signal>ClickWedgeNear()</signal>
+   <receiver>checkBox_6</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>448</x>
+     <y>274</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>59</x>
+     <y>607</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>widget</sender>
+   <signal>ClickWedgeFar()</signal>
+   <receiver>checkBox_7</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>454</x>
+     <y>281</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>167</x>
+     <y>619</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>widget</sender>
+   <signal>ClickRectLeft()</signal>
+   <receiver>checkBox_8</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>394</x>
+     <y>258</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>77</x>
+     <y>509</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>widget</sender>
+   <signal>ClickRectRight()</signal>
+   <receiver>checkBox_9</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>484</x>
+     <y>244</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>131</x>
+     <y>509</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>widget</sender>
+   <signal>ClickRectTop()</signal>
+   <receiver>checkBox_10</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>559</x>
+     <y>194</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>151</x>
+     <y>615</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>widget</sender>
+   <signal>ClickRectBottom()</signal>
+   <receiver>checkBox_11</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>539</x>
+     <y>259</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>78</x>
+     <y>616</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>selectall</sender>
+   <signal>clicked()</signal>
+   <receiver>widget</receiver>
+   <slot>SelectAllSectors()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>197</x>
+     <y>369</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>382</x>
+     <y>278</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>deselectall</sender>
+   <signal>clicked()</signal>
+   <receiver>widget</receiver>
+   <slot>DeselectAll()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>226</x>
+     <y>427</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>352</x>
+     <y>382</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_16</sender>
+   <signal>clicked()</signal>
+   <receiver>widget</receiver>
+   <slot>LoadXML()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>146</x>
+     <y>300</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>428</x>
+     <y>249</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox_3</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>widget</receiver>
+   <slot>UpdateStoredArcPos(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>421</x>
+     <y>650</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>489</x>
+     <y>385</y>
     </hint>
    </hints>
   </connection>

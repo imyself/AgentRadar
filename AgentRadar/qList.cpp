@@ -37,8 +37,10 @@ void qList::AccessValue(QListWidgetItem* q){
 }
 
 void qList::ArcValueChanged(QString qs){
-	dynamic_cast<SnappingPoint*>(currentItem())->setText(qs);
-	dynamic_cast<SnappingPoint*>(currentItem())->position = qs.toInt();
+	if(currentItem()){
+		dynamic_cast<SnappingPoint*>(currentItem())->setText(qs);
+		dynamic_cast<SnappingPoint*>(currentItem())->position = qs.toInt();
+	}
 }
 
 

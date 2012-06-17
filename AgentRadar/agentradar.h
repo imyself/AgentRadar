@@ -12,6 +12,7 @@ public:
 	AgentRadar(QWidget *parent = 0, Qt::WFlags flags = 0);
 	~AgentRadar();
 	bool wedges;
+	void keyPressEvent(QKeyEvent* e);
 
 	MyGLWidget* gl_widget;
 

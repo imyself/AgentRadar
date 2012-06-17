@@ -22,6 +22,7 @@ public:
 	float max_distance;//Keep track of the largest wedge/rectangle for sizing the shapes in the viewport
 	int num_sectors_in_ring;
 	bool wedges;//Are we dealing with wedges or rectangles?
+	int arc_pos;
 
 	//Wedge variables
 	bool left_edge, right_edge;
@@ -63,6 +64,10 @@ public slots:
 	void DeleteSectors();
 	void DeleteAllSectors();
 	void CreateSectorRing();
+	void SelectAllSectors();
+	void DeselectAll();
+
+	void LoadXML();
 
 	//FLAGS
 	void DisplayAgents(bool);
@@ -93,6 +98,7 @@ public slots:
 	void SetCurrentArc(QListWidgetItem*);
 	void AddArc();
 	void RemoveArc();
+	void UpdateStoredArcPos(int);
 
 	//RECT SLOTS
 	
@@ -133,4 +139,14 @@ signals:
 	void SendRectBottomBound(double);
 
 	void SendMyself(MyGLWidget*);
+
+	void ClickWedgeLeft();
+	void ClickWedgeRight();
+	void ClickWedgeNear();
+	void ClickWedgeFar();
+
+	void ClickRectLeft();
+	void ClickRectRight();
+	void ClickRectTop();
+	void ClickRectBottom();
 };

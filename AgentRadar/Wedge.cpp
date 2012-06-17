@@ -11,9 +11,9 @@ Wedge::Wedge() : Sector()
 	far_bound = 100.0f;
 	sweep = 60;
 	//Add default snapping points later?
-	for(int i = 15; i < 100; i+=10){
+	/*for(int i = 15; i < 100; i+=10){
 		snapping_points.push_back(new SnappingPoint(i));
-	}
+	}*/
 }
 
 Wedge::Wedge(int lb, int rb, float nb, float fb) : Sector(){
@@ -56,9 +56,14 @@ bool Wedge::IntersectionTest(float x, float y, float max_distance){
 	//Point clicked
 	vec2 v = glm::normalize(vec2(x-200,200-y));
 	//Angles
-	float angle_a = glm::degrees(acos(glm::dot(a,v)));//WORRY ABOUT NEGATIVE ANGLES!!!!!!!!!111!!!!
-	float angle_b = glm::degrees(acos(glm::dot(b,v)));
-	if(abs(sweep - (angle_a + angle_b)) > 0.01f)
+	float angle_a = glm::degrees(acos(glm::dot(a,v))); float angle_a2 = 360 - angle_a;//WORRY ABOUT NEGATIVE ANGLES!!!!!!!!!111!!!!
+	float angle_b = glm::degrees(acos(glm::dot(b,v))); float angle_b2 = 360 - angle_b;
+	bool l, m, n;
+	l = abs(sweep - (angle_a + angle_b)) > 0.01f;
+	m = abs(sweep - (angle_a2 + angle_b)) > 0.01f;
+	n = abs(sweep - (angle_a + angle_b2)) > 0.01f;
+
+	if(l && m && n)
 		return false;
 
 	return true;

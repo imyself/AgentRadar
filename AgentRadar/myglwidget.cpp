@@ -2,6 +2,8 @@
 #include "Wedge.h"
 #include "Rect.h"
 #include "glm/gtc/matrix_transform.hpp"
+#include <qfiledialog.h>
+#include "XMLLoader.h"
 
 MyGLWidget::MyGLWidget(QWidget* parent) : QGLWidget(parent) {
 	setFocusPolicy(Qt::ClickFocus);
@@ -14,6 +16,7 @@ MyGLWidget::MyGLWidget(QWidget* parent) : QGLWidget(parent) {
 
 	num_sectors_in_ring = 8;
 	wedges = true;
+	arc_pos = 0;
 }
 
 void MyGLWidget::mousePressEvent(QMouseEvent* e){
@@ -74,6 +77,37 @@ void MyGLWidget::keyPressEvent(QKeyEvent* e){
 			else if(selected_sectors[0]->GetType() == 2){
 				RectShiftDown();
 			}
+		}
+	}
+	else if(e->key() == Qt::Key_A){
+		if(e->modifiers() & Qt::ControlModifier){
+			SelectAllSectors();
+		}
+		else{
+			emit ClickWedgeLeft();
+			emit ClickRectLeft();
+		}
+	}
+	else if(e->key() == Qt::Key_D){
+		if(e->modifiers() & Qt::ControlModifier){
+			DeselectAll();
+		}
+		else{
+			emit ClickWedgeRight();
+			emit ClickRectRight();
+		}
+	}
+	else if(e->key() == Qt::Key_W){
+		emit ClickWedgeFar();
+		emit ClickRectTop();
+	}
+	else if(e->key() == Qt::Key_S){
+		emit ClickWedgeNear();
+		emit ClickRectBottom();
+	}
+	else if(e->key() == Qt::Key_O){
+		if(e->modifiers() & Qt::ControlModifier){
+			LoadXML();
 		}
 	}
 }
@@ -485,15 +519,30 @@ void MyGLWidget::DeleteSectors(){
 }
 
 void MyGLWidget::DeleteAllSectors(){
-	//Deselect all
-	for(unsigned int i = 0; i < selected_sectors.size(); i++){
-		ToggleSelected(selected_sectors[i]);
-	}
 	//Select all
 	for(unsigned int i = 0; i < sectors.size(); i++){
-		ToggleSelected(sectors[i]);
+		if(sectors[i]->selected == false)
+			ToggleSelected(sectors[i]);
 	}
 	DeleteSectors();
+}
+
+void MyGLWidget::SelectAllSectors(){
+	//Select all
+	for(unsigned int i = 0; i < sectors.size(); i++){
+		if(sectors[i]->selected == false)
+			ToggleSelected(sectors[i]);
+	}
+	updateGL();
+}
+
+void MyGLWidget::DeselectAll(){
+	//Select all
+	for(unsigned int i = 0; i < sectors.size(); i++){
+		if(sectors[i]->selected)
+			ToggleSelected(sectors[i]);
+	}
+	updateGL();
 }
 
 //FLAGS
@@ -708,7 +757,7 @@ void MyGLWidget::AddArc(){
 	if(selected_sectors.size() > 0){
 		if(selected_sectors[0]->GetType() == 1){
 			Wedge* w = dynamic_cast<Wedge*>(selected_sectors[selected_sectors.size()-1]);
-			w->snapping_points.push_back(new SnappingPoint(0));
+			w->snapping_points.push_back(new SnappingPoint(arc_pos));
 			for(unsigned int i = 0; i < w->snapping_points.size(); i++){
 				emit SendSnappingPoint(w->snapping_points[i]);
 			}
@@ -731,6 +780,10 @@ void MyGLWidget::RemoveArc(){
 			updateGL();
 		}
 	}
+}
+
+void MyGLWidget::UpdateStoredArcPos(int i){
+	arc_pos = i;
 }
 
 void MyGLWidget::RectSetHorizontal(double d){
@@ -842,6 +895,7 @@ void MyGLWidget::CallUpdateGL(){
 
 void MyGLWidget::AddNewSector(Sector* s){
 	sectors.push_back(s);
+	UpdateMaxDistance();
 	updateGL();
 }
 
@@ -850,7 +904,7 @@ void MyGLWidget::CreateSectorRing(){
 	float deg = 360.0f/num_sectors_in_ring;
 	for(int i = 1; i <= num_sectors_in_ring; i++){
 		if(wedges){
-			s = new Wedge(deg/2 + i*deg, deg/2 + (i-1)*deg, 0, 10);
+			s = new Wedge(deg/2 + i*deg + 90.0f, deg/2 + (i-1)*deg + 90.0f, 0, 10);
 			sectors.push_back(s);
 		}
 		else{
@@ -872,4 +926,20 @@ void MyGLWidget::CreateSectorRing(){
 
 void MyGLWidget::SetWedgesBool(bool b){
 	wedges = b;
+}
+
+void MyGLWidget::LoadXML(){
+	QString q_file_name = QFileDialog::getOpenFileName(this, tr("Open XML"), "../", tr("*.xml"));
+	std::string filename = q_file_name.toLocal8Bit().constData();
+	TiXmlDocument doc(filename);
+
+	XMLLoader* loader = new XMLLoader();
+
+	if(doc.LoadFile()){
+		doc.Accept(loader);
+		sectors = loader->sectors;
+	}
+	delete loader;
+	UpdateMaxDistance();
+	updateGL();
 }
