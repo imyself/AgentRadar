@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'agentradar.ui'
 **
-** Created: Sat Jun 16 20:09:09 2012
+** Created: Sun Jun 17 12:09:38 2012
 **      by: Qt User Interface Compiler version 4.8.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -111,6 +111,10 @@ public:
     QLabel *label_16;
     QPushButton *pushButton_12;
     QPushButton *pushButton_13;
+    QPushButton *pushButton_14;
+    QPushButton *pushButton_15;
+    QPushButton *allflagson;
+    QPushButton *allflagsoff;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -346,25 +350,37 @@ public:
         pushButton_5->setGeometry(QRect(20, 380, 131, 23));
         radioButton = new QRadioButton(centralWidget);
         radioButton->setObjectName(QString::fromUtf8("radioButton"));
-        radioButton->setGeometry(QRect(140, 20, 82, 17));
+        radioButton->setGeometry(QRect(10, 220, 82, 17));
         radioButton->setChecked(true);
         radioButton_2 = new QRadioButton(centralWidget);
         radioButton_2->setObjectName(QString::fromUtf8("radioButton_2"));
-        radioButton_2->setGeometry(QRect(140, 40, 82, 17));
+        radioButton_2->setGeometry(QRect(10, 240, 82, 17));
         spinBox_4 = new QSpinBox(centralWidget);
         spinBox_4->setObjectName(QString::fromUtf8("spinBox_4"));
-        spinBox_4->setGeometry(QRect(130, 70, 42, 22));
+        spinBox_4->setGeometry(QRect(100, 220, 42, 22));
         spinBox_4->setMinimum(1);
         spinBox_4->setValue(8);
         label_16 = new QLabel(centralWidget);
         label_16->setObjectName(QString::fromUtf8("label_16"));
-        label_16->setGeometry(QRect(130, 100, 91, 16));
+        label_16->setGeometry(QRect(150, 220, 91, 21));
         pushButton_12 = new QPushButton(centralWidget);
         pushButton_12->setObjectName(QString::fromUtf8("pushButton_12"));
         pushButton_12->setGeometry(QRect(20, 350, 131, 23));
         pushButton_13 = new QPushButton(centralWidget);
         pushButton_13->setObjectName(QString::fromUtf8("pushButton_13"));
-        pushButton_13->setGeometry(QRect(84, 210, 101, 23));
+        pushButton_13->setGeometry(QRect(20, 320, 131, 23));
+        pushButton_14 = new QPushButton(centralWidget);
+        pushButton_14->setObjectName(QString::fromUtf8("pushButton_14"));
+        pushButton_14->setGeometry(QRect(100, 250, 141, 23));
+        pushButton_15 = new QPushButton(centralWidget);
+        pushButton_15->setObjectName(QString::fromUtf8("pushButton_15"));
+        pushButton_15->setGeometry(QRect(160, 350, 75, 23));
+        allflagson = new QPushButton(centralWidget);
+        allflagson->setObjectName(QString::fromUtf8("allflagson"));
+        allflagson->setGeometry(QRect(130, 40, 75, 23));
+        allflagsoff = new QPushButton(centralWidget);
+        allflagsoff->setObjectName(QString::fromUtf8("allflagsoff"));
+        allflagsoff->setGeometry(QRect(130, 70, 75, 23));
         AgentRadarClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(AgentRadarClass);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
@@ -436,6 +452,11 @@ public:
         QObject::connect(pushButton_13, SIGNAL(clicked()), AgentRadarClass, SLOT(CreateNewSector()));
         QObject::connect(radioButton, SIGNAL(toggled(bool)), AgentRadarClass, SLOT(SetWedgesBool(bool)));
         QObject::connect(widget, SIGNAL(SendMyself(MyGLWidget*)), AgentRadarClass, SLOT(GetGLWidget(MyGLWidget*)));
+        QObject::connect(pushButton_14, SIGNAL(clicked()), widget, SLOT(CreateSectorRing()));
+        QObject::connect(radioButton, SIGNAL(toggled(bool)), widget, SLOT(SetWedgesBool(bool)));
+        QObject::connect(pushButton_15, SIGNAL(clicked()), widget, SLOT(DeleteAllSectors()));
+        QObject::connect(allflagson, SIGNAL(clicked()), widget, SLOT(AllFlagsOn()));
+        QObject::connect(allflagsoff, SIGNAL(clicked()), widget, SLOT(AllFlagsOff()));
 
         tabWidget->setCurrentIndex(0);
 
@@ -504,6 +525,10 @@ public:
         label_16->setText(QApplication::translate("AgentRadarClass", "Number of Sectors", 0, QApplication::UnicodeUTF8));
         pushButton_12->setText(QApplication::translate("AgentRadarClass", "Delete Selected Sectors", 0, QApplication::UnicodeUTF8));
         pushButton_13->setText(QApplication::translate("AgentRadarClass", "Create New Sector", 0, QApplication::UnicodeUTF8));
+        pushButton_14->setText(QApplication::translate("AgentRadarClass", "Create Sector Ring", 0, QApplication::UnicodeUTF8));
+        pushButton_15->setText(QApplication::translate("AgentRadarClass", "Delete All", 0, QApplication::UnicodeUTF8));
+        allflagson->setText(QApplication::translate("AgentRadarClass", "All Flags On", 0, QApplication::UnicodeUTF8));
+        allflagsoff->setText(QApplication::translate("AgentRadarClass", "All Flags Off", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

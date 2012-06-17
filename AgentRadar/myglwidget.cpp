@@ -11,6 +11,9 @@ MyGLWidget::MyGLWidget(QWidget* parent) : QGLWidget(parent) {
 
 	left_side = right_side = top_side = bottom_side = false;
 	h_shift = v_shift = 5.0f;
+
+	num_sectors_in_ring = 8;
+	wedges = true;
 }
 
 void MyGLWidget::mousePressEvent(QMouseEvent* e){
@@ -22,6 +25,57 @@ void MyGLWidget::mousePressEvent(QMouseEvent* e){
 		}
 	}
 	updateGL();
+}
+
+void MyGLWidget::keyPressEvent(QKeyEvent* e){
+	if(e->key() == Qt::Key_Backspace || e->key() == Qt::Key_Delete){
+		if(e->modifiers() & Qt::ShiftModifier){
+			DeleteAllSectors();
+		}
+		else{
+			DeleteSectors();
+		}	
+	}
+	else if(e->key() == Qt::Key_Left){
+		if(selected_sectors.size() > 0){
+			if(selected_sectors[0]->GetType() == 1){
+				WedgeCounterClockwise();
+			}
+			else if(selected_sectors[0]->GetType() == 2){
+				RectShiftLeft();
+			}
+		}
+	}
+	else if(e->key() == Qt::Key_Right){
+		if(selected_sectors.size() > 0){
+			if(selected_sectors[0]->GetType() == 1){
+				WedgeClockwise();
+			}
+			else if(selected_sectors[0]->GetType() == 2){
+				RectShiftRight();
+			}
+		}
+	}
+	else if(e->key() == Qt::Key_Up){
+		if(selected_sectors.size() > 0){
+			if(selected_sectors[0]->GetType() == 1){
+				WedgeFarther();
+			}
+			else if(selected_sectors[0]->GetType() == 2){
+				RectShiftUp();
+			}
+		}
+	}
+	else if(e->key() == Qt::Key_Down){
+		if(selected_sectors.size() > 0){
+			if(selected_sectors[0]->GetType() == 1){
+				WedgeCloser();
+			}
+			else if(selected_sectors[0]->GetType() == 2){
+				RectShiftDown();
+			}
+		}
+	}
 }
 
 void MyGLWidget::ToggleSelected(Sector* s){
@@ -157,7 +211,7 @@ void MyGLWidget::initializeGL(){
 	sectors.push_back(new Wedge(60, 0, 10, 100));
 	*/
 
-	sectors.push_back(new Rect());
+	//sectors.push_back(new Rect());
 
 	//Update max distance
 	max_distance = 0;
@@ -375,6 +429,25 @@ void MyGLWidget::Render(Sector* s){
 			p = glm::vec2(r->right_edge, r->bottom_edge) / max_distance;
 			glVertex2f(p.x, p.y);
 		glEnd();
+		//Edging
+		glBegin(GL_LINE_STRIP);
+			glColor3f(1,1,1);
+			//Lower left
+			p = glm::vec2(r->left_edge, r->bottom_edge); p/= max_distance;
+			glVertex2f(p.x, p.y);
+			//Upper left
+			p = glm::vec2(r->left_edge, r->top_edge) / max_distance;
+			glVertex2f(p.x, p.y);
+			//Upper right
+			p = glm::vec2(r->right_edge, r->top_edge) / max_distance;
+			glVertex2f(p.x, p.y);
+			//Lower right
+			p = glm::vec2(r->right_edge, r->bottom_edge) / max_distance;
+			glVertex2f(p.x, p.y);
+			//Lower left again
+			p = glm::vec2(r->left_edge, r->bottom_edge); p/= max_distance;
+			glVertex2f(p.x, p.y);
+		glEnd();
 	}
 }
 
@@ -385,7 +458,8 @@ void MyGLWidget::SetTypeWedges(){
 }
 void MyGLWidget::SetTypeRectangles(){
 }
-void MyGLWidget::SetNumberSectors(int){
+void MyGLWidget::SetNumberSectors(int i){
+	num_sectors_in_ring = i;
 }
 
 void MyGLWidget::MergeSelectedSectors(){
@@ -408,6 +482,18 @@ void MyGLWidget::DeleteSectors(){
 		DisplayPreviousSectorData(s);
 	delete [] to_delete;
 	updateGL();
+}
+
+void MyGLWidget::DeleteAllSectors(){
+	//Deselect all
+	for(unsigned int i = 0; i < selected_sectors.size(); i++){
+		ToggleSelected(selected_sectors[i]);
+	}
+	//Select all
+	for(unsigned int i = 0; i < sectors.size(); i++){
+		ToggleSelected(sectors[i]);
+	}
+	DeleteSectors();
 }
 
 //FLAGS
@@ -446,6 +532,26 @@ void MyGLWidget::SetCardinality(int c){
 		selected_sectors[i]->cardinality = c;
 	}
 	updateGL();
+}
+
+void MyGLWidget::AllFlagsOn(){
+	DisplayAgents(true);
+	DisplayObstacles(true);
+	DisplayInspection(true);
+	DisplayNetFlow(true);
+	DisplayDensity(true);
+	if(selected_sectors.size() > 0)
+		DisplayCurrentSectorData(selected_sectors[selected_sectors.size() - 1]);
+}
+
+void MyGLWidget::AllFlagsOff(){
+	DisplayAgents(false);
+	DisplayObstacles(false);
+	DisplayInspection(false);
+	DisplayNetFlow(false);
+	DisplayDensity(false);
+	if(selected_sectors.size() > 0)
+		DisplayCurrentSectorData(selected_sectors[selected_sectors.size() - 1]);
 }
 
 //WEDGE SLOTS
@@ -737,4 +843,33 @@ void MyGLWidget::CallUpdateGL(){
 void MyGLWidget::AddNewSector(Sector* s){
 	sectors.push_back(s);
 	updateGL();
+}
+
+void MyGLWidget::CreateSectorRing(){
+	Sector* s;
+	float deg = 360.0f/num_sectors_in_ring;
+	for(int i = 1; i <= num_sectors_in_ring; i++){
+		if(wedges){
+			s = new Wedge(deg/2 + i*deg, deg/2 + (i-1)*deg, 0, 10);
+			sectors.push_back(s);
+		}
+		else{
+			std::vector<glm::vec4> square;
+			glm::vec4 ur(5,5,0,1); glm::vec4 ul(-5,5,0,1); glm::vec4 lr(5,-5,0,1); glm::vec4 ll(-5,-5,0,1);
+			square.push_back(ur); square.push_back(ul); square.push_back(lr); square.push_back(ll);
+			glm::vec4 p(0,1,0,1);
+			p = glm::rotate(glm::mat4(1.0f), deg*i, glm::vec3(0,0,1)) * p;
+			for(unsigned int j = 0; j < square.size(); j++){
+				square[j] = glm::translate(glm::mat4(1.0f), 10.0f*glm::vec3(p)) * square[j];
+			}
+			s = new Rect(square[1].x, square[0].x, square[1].y, square[3].y);
+			sectors.push_back(s);
+		}
+	}
+	UpdateMaxDistance();
+	updateGL();
+}
+
+void MyGLWidget::SetWedgesBool(bool b){
+	wedges = b;
 }

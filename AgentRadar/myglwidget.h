@@ -20,6 +20,8 @@ public:
 	QListWidgetItem* current_arc;
 
 	float max_distance;//Keep track of the largest wedge/rectangle for sizing the shapes in the viewport
+	int num_sectors_in_ring;
+	bool wedges;//Are we dealing with wedges or rectangles?
 
 	//Wedge variables
 	bool left_edge, right_edge;
@@ -35,6 +37,7 @@ public:
 
 	//Functions
 	void mousePressEvent(QMouseEvent* e);
+	void keyPressEvent(QKeyEvent* e);
 	void ToggleSelected(Sector*);
 
 	void DisplayPreviousSectorData(Sector* s);
@@ -54,9 +57,12 @@ public slots:
 	void SetTypeWedges();
 	void SetTypeRectangles();
 	void SetNumberSectors(int);
+	void SetWedgesBool(bool);
 
 	void MergeSelectedSectors();
 	void DeleteSectors();
+	void DeleteAllSectors();
+	void CreateSectorRing();
 
 	//FLAGS
 	void DisplayAgents(bool);
@@ -65,6 +71,9 @@ public slots:
 	void DisplayNetFlow(bool);
 	void DisplayDensity(bool);
 	void SetCardinality(int);
+
+	void AllFlagsOn();
+	void AllFlagsOff();
 
 	//WEDGE SLOTS
 	//Shifting Radial Boundaries
