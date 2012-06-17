@@ -42,6 +42,9 @@ public:
 	void Render(Sector*);
 	void UpdateMaxDistance();
 
+
+	void AddNewSector(Sector*);
+
 	void paintGL();
 	void initializeGL();
 	void resizeGL(int, int);
@@ -117,8 +120,8 @@ signals:
 
 	void SendRectLeftBound(double);
 	void SendRectRightBound(double);
-	void SendRectUpperBound(double);
-	void SendRectLowerBound(double);
+	void SendRectTopBound(double);
+	void SendRectBottomBound(double);
 
-
+	void SendMyself(MyGLWidget*);
 };

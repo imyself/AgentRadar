@@ -22,9 +22,14 @@ Rect::~Rect(void)
 }
 
 bool Rect::IntersectionTest(float x, float y, float max_distance){
-	float dx = (x-200)/400;
-	float dy = (200-y)/400;
-	if(dx > left_edge/max_distance && dx < right_edge/max_distance && dy < top_edge/max_distance && dy > bottom_edge/max_distance){
+	float dx = (x-200)/200;
+	float dy = (200-y)/200;
+	float lt = left_edge/max_distance;
+	float rt = right_edge/max_distance;
+	float ut = top_edge/max_distance;
+	float bt = bottom_edge/max_distance;
+
+	if(dx > lt && dx < rt && dy < ut && dy > bt){
 		return true;
 	}
 	return false;

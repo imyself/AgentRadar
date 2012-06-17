@@ -122,7 +122,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -888,6 +888,9 @@
     <property name="text">
      <string>Wedges</string>
     </property>
+    <property name="checked">
+     <bool>true</bool>
+    </property>
    </widget>
    <widget class="QRadioButton" name="radioButton_2">
     <property name="geometry">
@@ -944,6 +947,19 @@
      <string>Delete Selected Sectors</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButton_13">
+    <property name="geometry">
+     <rect>
+      <x>84</x>
+      <y>210</y>
+      <width>101</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Create New Sector</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -989,6 +1005,7 @@
     <signal>SendRectTopBound(double)</signal>
     <signal>SendRectBottomBound(double)</signal>
     <signal>SendCardinality(int)</signal>
+    <signal>SendMyself(MyGLWidget*)</signal>
     <slot>WedgeSelectLeft(bool)</slot>
     <slot>WedgeSelectRight(bool)</slot>
     <slot>WedgeSelectNear(bool)</slot>
@@ -1924,5 +1941,58 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>pushButton_13</sender>
+   <signal>clicked()</signal>
+   <receiver>AgentRadarClass</receiver>
+   <slot>CreateNewSector()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>171</x>
+     <y>259</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>207</x>
+     <y>252</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>AgentRadarClass</receiver>
+   <slot>SetWedgesBool(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>208</x>
+     <y>59</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>239</x>
+     <y>46</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>widget</sender>
+   <signal>SendMyself(MyGLWidget*)</signal>
+   <receiver>AgentRadarClass</receiver>
+   <slot>GetGLWidget(MyGLWidget*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>441</x>
+     <y>285</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>219</x>
+     <y>310</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
+ <slots>
+  <slot>CreateNewSector()</slot>
+  <slot>SetWedgesBool(bool)</slot>
+  <slot>GetGLWidget(MyGLWidget*)</slot>
+ </slots>
 </ui>

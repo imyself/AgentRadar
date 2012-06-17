@@ -76,8 +76,8 @@ void MyGLWidget::DisplayPreviousSectorData(Sector* s){
 			Rect* w = dynamic_cast<Rect*>(selected_sectors[selected_sectors.size()-1]);
 			emit SendRectLeftBound(w->left_edge);
 			emit SendRectRightBound(w->right_edge);
-			emit SendRectUpperBound(w->top_edge);
-			emit SendRectLowerBound(w->bottom_edge);
+			emit SendRectTopBound(w->top_edge);
+			emit SendRectBottomBound(w->bottom_edge);
 			emit SendAgentStatus(w->agents);
 			emit SendObstaclesStatus(w->obstacles);
 			emit SendInspectionStatus(w->inspection);
@@ -88,8 +88,8 @@ void MyGLWidget::DisplayPreviousSectorData(Sector* s){
 		else{
 			emit SendRectLeftBound(0);
 			emit SendRectRightBound(0);
-			emit SendRectUpperBound(0);
-			emit SendRectLowerBound(0);
+			emit SendRectTopBound(0);
+			emit SendRectBottomBound(0);
 			emit SendAgentStatus(false);
 			emit SendObstaclesStatus(false);
 			emit SendInspectionStatus(false);
@@ -122,8 +122,8 @@ void MyGLWidget::DisplayCurrentSectorData(Sector* s){
 		Rect* w = dynamic_cast<Rect*>(s);
 		emit SendRectLeftBound(w->left_edge);
 		emit SendRectRightBound(w->right_edge);
-		emit SendRectUpperBound(w->top_edge);
-		emit SendRectLowerBound(w->bottom_edge);
+		emit SendRectTopBound(w->top_edge);
+		emit SendRectBottomBound(w->bottom_edge);
 		emit SendAgentStatus(w->agents);
 		emit SendObstaclesStatus(w->obstacles);
 		emit SendInspectionStatus(w->inspection);
@@ -162,6 +162,8 @@ void MyGLWidget::initializeGL(){
 	//Update max distance
 	max_distance = 0;
 	UpdateMaxDistance();
+
+	emit SendMyself(this);
 }
 
 void MyGLWidget::UpdateMaxDistance(){
@@ -676,12 +678,63 @@ void MyGLWidget::RectShiftRight(){
 	updateGL();
 }
 
-void MyGLWidget::RectSetVertical(double){}
-void MyGLWidget::RectSelectTop(bool){}
-void MyGLWidget::RectSelectBottom(bool){}
-void MyGLWidget::RectShiftUp(){}
-void MyGLWidget::RectShiftDown(){}
+void MyGLWidget::RectSetVertical(double d){
+	v_shift = d;
+}
+void MyGLWidget::RectSelectTop(bool b){
+	top_side = b;
+}
+void MyGLWidget::RectSelectBottom(bool b){
+	bottom_side = b;
+}
+void MyGLWidget::RectShiftUp(){
+	for(unsigned int i = 0; i < selected_sectors.size(); i++){
+		//Make sure we're typesafe
+		if(selected_sectors[i]->GetType() == 2){
+			Rect* r = dynamic_cast<Rect*>(selected_sectors[i]);
+			if(top_side){
+				r->top_edge += v_shift;
+				SendRectTopBound(r->top_edge);
+			}
+			if(bottom_side){
+				r->bottom_edge += v_shift;
+				if(r->bottom_edge >= r->top_edge)
+					r->bottom_edge = r->top_edge - 1;
+				SendRectBottomBound(r->bottom_edge);
+			}
+		}
+	}
+	UpdateMaxDistance();
+	updateGL();
+}
+void MyGLWidget::RectShiftDown(){
+	for(unsigned int i = 0; i < selected_sectors.size(); i++){
+		//Make sure we're typesafe
+		if(selected_sectors[i]->GetType() == 2){
+			Rect* r = dynamic_cast<Rect*>(selected_sectors[i]);
+			if(top_side){
+				r->top_edge -= v_shift;
+				if(r->bottom_edge >= r->top_edge)
+					r->top_edge = r->bottom_edge + 1;
+				SendRectTopBound(r->top_edge);
+			}
+			if(bottom_side){
+				r->bottom_edge -= v_shift;
+				if(r->bottom_edge >= r->top_edge)
+					r->bottom_edge = r->top_edge - 1;
+				SendRectBottomBound(r->bottom_edge);
+			}
+		}
+	}
+	UpdateMaxDistance();
+	updateGL();
+}
 
 void MyGLWidget::CallUpdateGL(){
+	updateGL();
+}
+
+void MyGLWidget::AddNewSector(Sector* s){
+	sectors.push_back(s);
 	updateGL();
 }

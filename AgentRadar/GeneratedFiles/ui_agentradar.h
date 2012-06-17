@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'agentradar.ui'
 **
-** Created: Sat Jun 16 15:14:43 2012
+** Created: Sat Jun 16 20:09:09 2012
 **      by: Qt User Interface Compiler version 4.8.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -110,6 +110,7 @@ public:
     QSpinBox *spinBox_4;
     QLabel *label_16;
     QPushButton *pushButton_12;
+    QPushButton *pushButton_13;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -346,6 +347,7 @@ public:
         radioButton = new QRadioButton(centralWidget);
         radioButton->setObjectName(QString::fromUtf8("radioButton"));
         radioButton->setGeometry(QRect(140, 20, 82, 17));
+        radioButton->setChecked(true);
         radioButton_2 = new QRadioButton(centralWidget);
         radioButton_2->setObjectName(QString::fromUtf8("radioButton_2"));
         radioButton_2->setGeometry(QRect(140, 40, 82, 17));
@@ -360,6 +362,9 @@ public:
         pushButton_12 = new QPushButton(centralWidget);
         pushButton_12->setObjectName(QString::fromUtf8("pushButton_12"));
         pushButton_12->setGeometry(QRect(20, 350, 131, 23));
+        pushButton_13 = new QPushButton(centralWidget);
+        pushButton_13->setObjectName(QString::fromUtf8("pushButton_13"));
+        pushButton_13->setGeometry(QRect(84, 210, 101, 23));
         AgentRadarClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(AgentRadarClass);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
@@ -428,8 +433,11 @@ public:
         QObject::connect(widget, SIGNAL(SendRectTopBound(double)), label_23, SLOT(setNum(double)));
         QObject::connect(widget, SIGNAL(SendRectBottomBound(double)), label_21, SLOT(setNum(double)));
         QObject::connect(widget, SIGNAL(SendCardinality(int)), spinBox, SLOT(setValue(int)));
+        QObject::connect(pushButton_13, SIGNAL(clicked()), AgentRadarClass, SLOT(CreateNewSector()));
+        QObject::connect(radioButton, SIGNAL(toggled(bool)), AgentRadarClass, SLOT(SetWedgesBool(bool)));
+        QObject::connect(widget, SIGNAL(SendMyself(MyGLWidget*)), AgentRadarClass, SLOT(GetGLWidget(MyGLWidget*)));
 
-        tabWidget->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(AgentRadarClass);
@@ -495,6 +503,7 @@ public:
         radioButton_2->setText(QApplication::translate("AgentRadarClass", "Rectangles", 0, QApplication::UnicodeUTF8));
         label_16->setText(QApplication::translate("AgentRadarClass", "Number of Sectors", 0, QApplication::UnicodeUTF8));
         pushButton_12->setText(QApplication::translate("AgentRadarClass", "Delete Selected Sectors", 0, QApplication::UnicodeUTF8));
+        pushButton_13->setText(QApplication::translate("AgentRadarClass", "Create New Sector", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

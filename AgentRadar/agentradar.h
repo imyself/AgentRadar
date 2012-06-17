@@ -11,6 +11,14 @@ class AgentRadar : public QMainWindow
 public:
 	AgentRadar(QWidget *parent = 0, Qt::WFlags flags = 0);
 	~AgentRadar();
+	bool wedges;
+
+	MyGLWidget* gl_widget;
+
+public slots:
+	void CreateNewSector();
+	void SetWedgesBool(bool);
+	void GetGLWidget(MyGLWidget*);
 
 private:
 	Ui::AgentRadarClass ui;
