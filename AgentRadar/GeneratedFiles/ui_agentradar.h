@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'agentradar.ui'
 **
-** Created: Sun Jun 17 16:51:23 2012
+** Created: Sun Jun 17 17:48:24 2012
 **      by: Qt User Interface Compiler version 4.8.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -122,6 +122,7 @@ public:
     QLabel *label_29;
     QFrame *line_9;
     QPushButton *pushButton_16;
+    QPushButton *savexmlfile;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -415,7 +416,10 @@ public:
         line_9->setFrameShadow(QFrame::Sunken);
         pushButton_16 = new QPushButton(centralWidget);
         pushButton_16->setObjectName(QString::fromUtf8("pushButton_16"));
-        pushButton_16->setGeometry(QRect(90, 260, 75, 23));
+        pushButton_16->setGeometry(QRect(20, 260, 75, 23));
+        savexmlfile = new QPushButton(centralWidget);
+        savexmlfile->setObjectName(QString::fromUtf8("savexmlfile"));
+        savexmlfile->setGeometry(QRect(110, 260, 75, 23));
         AgentRadarClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(AgentRadarClass);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
@@ -504,6 +508,7 @@ public:
         QObject::connect(deselectall, SIGNAL(clicked()), widget, SLOT(DeselectAll()));
         QObject::connect(pushButton_16, SIGNAL(clicked()), widget, SLOT(LoadXML()));
         QObject::connect(spinBox_3, SIGNAL(valueChanged(int)), widget, SLOT(UpdateStoredArcPos(int)));
+        QObject::connect(savexmlfile, SIGNAL(clicked()), widget, SLOT(WriteXML()));
 
         tabWidget->setCurrentIndex(0);
 
@@ -580,6 +585,7 @@ public:
         deselectall->setText(QApplication::translate("AgentRadarClass", "Deselect All", 0, QApplication::UnicodeUTF8));
         label_29->setText(QApplication::translate("AgentRadarClass", "Flags", 0, QApplication::UnicodeUTF8));
         pushButton_16->setText(QApplication::translate("AgentRadarClass", "Load XML File", 0, QApplication::UnicodeUTF8));
+        savexmlfile->setText(QApplication::translate("AgentRadarClass", "Save XML File", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

@@ -1096,7 +1096,7 @@
    <widget class="QPushButton" name="pushButton_16">
     <property name="geometry">
      <rect>
-      <x>90</x>
+      <x>20</x>
       <y>260</y>
       <width>75</width>
       <height>23</height>
@@ -1104,6 +1104,19 @@
     </property>
     <property name="text">
      <string>Load XML File</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="savexmlfile">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>260</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Save XML File</string>
     </property>
    </widget>
   </widget>
@@ -1204,6 +1217,7 @@
     <slot>DeselectAll()</slot>
     <slot>LoadXML()</slot>
     <slot>UpdateStoredArcPos(int)</slot>
+    <slot>WriteXML()</slot>
    </slots>
   </customwidget>
   <customwidget>
@@ -2399,7 +2413,7 @@
    <slot>LoadXML()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>146</x>
+     <x>76</x>
      <y>300</y>
     </hint>
     <hint type="destinationlabel">
@@ -2421,6 +2435,22 @@
     <hint type="destinationlabel">
      <x>489</x>
      <y>385</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>savexmlfile</sender>
+   <signal>clicked()</signal>
+   <receiver>widget</receiver>
+   <slot>WriteXML()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>143</x>
+     <y>298</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>320</x>
+     <y>294</y>
     </hint>
    </hints>
   </connection>

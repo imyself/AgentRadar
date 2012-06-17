@@ -68,6 +68,7 @@ public slots:
 	void DeselectAll();
 
 	void LoadXML();
+	void WriteXML();
 
 	//FLAGS
 	void DisplayAgents(bool);

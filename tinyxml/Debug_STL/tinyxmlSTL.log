@@ -1,4 +1,4 @@
-﻿Build started 6/17/2012 4:51:23 PM.
+﻿Build started 6/17/2012 6:07:24 PM.
      1>Project "C:\Users\Adam\AgentRadar\tinyxml\tinyxmlSTL.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating ".\Debug_STL\tinyxmlSTL.unsuccessfulbuild" because "AlwaysCreate" was specified.
@@ -18,4 +18,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.07
+Time Elapsed 00:00:00.12

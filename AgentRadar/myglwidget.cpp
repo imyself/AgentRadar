@@ -102,8 +102,13 @@ void MyGLWidget::keyPressEvent(QKeyEvent* e){
 		emit ClickRectTop();
 	}
 	else if(e->key() == Qt::Key_S){
-		emit ClickWedgeNear();
-		emit ClickRectBottom();
+		if(e->modifiers() & Qt::ControlModifier){
+			WriteXML();
+		}
+		else{
+			emit ClickWedgeNear();
+			emit ClickRectBottom();
+		}
 	}
 	else if(e->key() == Qt::Key_O){
 		if(e->modifiers() & Qt::ControlModifier){
@@ -929,7 +934,7 @@ void MyGLWidget::SetWedgesBool(bool b){
 }
 
 void MyGLWidget::LoadXML(){
-	QString q_file_name = QFileDialog::getOpenFileName(this, tr("Open XML"), "../", tr("*.xml"));
+	QString q_file_name = QFileDialog::getOpenFileName(this, tr("Open XML"), "../Output XML", tr("*.xml"));
 	std::string filename = q_file_name.toLocal8Bit().constData();
 	TiXmlDocument doc(filename);
 
@@ -942,4 +947,67 @@ void MyGLWidget::LoadXML(){
 	delete loader;
 	UpdateMaxDistance();
 	updateGL();
+}
+void MyGLWidget::WriteXML(){
+	QString q_file_name = QFileDialog::getSaveFileName(this, tr("Save XML"), "../Output XML", tr("*.xml"));
+	std::string filename = q_file_name.toLocal8Bit().constData();
+
+	TiXmlDocument doc;
+	TiXmlElement* root = new TiXmlElement("sectors");
+	doc.LinkEndChild(root);
+	for(unsigned int i = 0; i < sectors.size(); i++){
+		TiXmlElement* sector;
+		if(sectors[i]->GetType() == 1){
+			sector = new TiXmlElement("wedge");
+			Wedge* w = dynamic_cast<Wedge*>(sectors[i]);
+			//Bounds of wedge
+			sector->SetAttribute("left", w->left_bound);
+			sector->SetAttribute("right", w->right_bound);
+			sector->SetAttribute("near", w->near_bound);
+			sector->SetAttribute("far", w->far_bound);
+			//Snapping points
+			for(unsigned int j = 0; j < w->snapping_points.size(); j++){
+				TiXmlElement* snap = new TiXmlElement("snaparc");
+				snap->SetAttribute("pos", w->snapping_points[j]->position);
+				sector->LinkEndChild(snap);
+			}
+		}
+		else{
+			sector = new TiXmlElement("rect");
+			Rect* w = dynamic_cast<Rect*>(sectors[i]);
+			//Bounds of rect
+			sector->SetAttribute("left", w->left_edge);
+			sector->SetAttribute("right", w->right_edge);
+			sector->SetAttribute("up", w->top_edge);
+			sector->SetAttribute("down", w->bottom_edge);
+		}
+		//Do stuff for flags
+		//Agents
+		TiXmlElement* agents = new TiXmlElement("agents");
+		agents->SetAttribute("bool", (int)(sectors[i]->agents));
+		sector->LinkEndChild(agents);
+		//Obstacles
+		TiXmlElement* obstacles = new TiXmlElement("obstacles");
+		obstacles->SetAttribute("bool", (int)(sectors[i]->obstacles));
+		sector->LinkEndChild(obstacles);
+		//Inspection
+		TiXmlElement* inspection = new TiXmlElement("inspection");
+		inspection->SetAttribute("bool", (int)(sectors[i]->inspection));
+		sector->LinkEndChild(inspection);
+		//Net Flow
+		TiXmlElement* net_flow = new TiXmlElement("netflow");
+		net_flow->SetAttribute("bool", (int)(sectors[i]->net_flow));
+		sector->LinkEndChild(net_flow);
+		//Density
+		TiXmlElement* density = new TiXmlElement("density");
+		density->SetAttribute("bool", (int)(sectors[i]->density));
+		sector->LinkEndChild(density);
+		//Cardinality
+		TiXmlElement* cardinality = new TiXmlElement("cardinality");
+		cardinality->SetAttribute("num", (sectors[i]->cardinality));
+		sector->LinkEndChild(cardinality);
+		//Attach sector to root node
+		root->LinkEndChild(sector);
+	}
+	doc.SaveFile(filename);
 }
