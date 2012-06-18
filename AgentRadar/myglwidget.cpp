@@ -354,51 +354,6 @@ void MyGLWidget::Render(Sector* s){
 				glVertex2f(near_v[i].x, near_v[i].y);
 			}
 		glEnd();
-
-
-
-
-		/*
-		//Draw the body of the wedge
-		glBegin(GL_POLYGON);
-			//Color
-			if(w->agents || w->obstacles || w->inspection || w->net_flow || w->density){
-				if(w->selected)
-					glColor3f(0.3,1,0.3);
-				else 
-					glColor3f(1,0.3,0.3);
-			}
-			else{
-				if(w->selected)
-					glColor3f(0,0.3,0);
-				else
-					glColor3f(0.2,0.2,0.2);
-			}
-			//Far right bound
-			glm::vec4 p(w->far_bound/max_distance, 0, 1, 1);
-			p = glm::rotate(glm::mat4(1.0f), (float)w->right_bound, glm::vec3(0,0,1)) * p;
-			glVertex2f(p.x, p.y);
-			//Rotate FRB by 5 degrees until reach FLB
-			int angle = w->right_bound;
-			while(angle < w->left_bound){
-				angle = min(angle + 5, w->left_bound);
-				p = glm::vec4(w->far_bound/max_distance, 0, 1, 1);
-				p = glm::rotate(glm::mat4(1.0f), (float)angle, glm::vec3(0,0,1)) * p;
-				glVertex2f(p.x, p.y);
-			}
-			//Near left bound
-			p = glm::vec4(w->near_bound/max_distance, 0, 1, 1);
-			p = glm::rotate(glm::mat4(1.0f), (float)w->left_bound, glm::vec3(0,0,1)) * p;
-			glVertex2f(p.x, p.y);
-			//Rotate NLB by 5 degrees until reach NRB
-			angle = w->left_bound;
-			while(angle > w->right_bound){
-				angle = max(angle - 5, w->right_bound);
-				p = glm::vec4(w->near_bound/max_distance, 0, 1, 1);
-				p = glm::rotate(glm::mat4(1.0f), (float)angle, glm::vec3(0,0,1)) * p;
-				glVertex2f(p.x, p.y);
-			}
-		glEnd();*/
 		//Draw the outline of the wedge
 		glBegin(GL_LINES);
 		//Right line
@@ -417,6 +372,20 @@ void MyGLWidget::Render(Sector* s){
 			p2 = glm::rotate(glm::mat4(1.0f), (float)w->left_bound, glm::vec3(0,0,1)) * p2;
 			glVertex2f(p1.x, p1.y);
 			glVertex2f(p2.x, p2.y);
+		glEnd();
+		//Near edge
+		glBegin(GL_LINE_STRIP);
+			glColor3f(1,1,1);
+			for(unsigned int i = 0; i < near_v.size(); i++){
+				glVertex2f(near_v[i].x, near_v[i].y);
+			}
+		glEnd();
+		//Far edge
+		glBegin(GL_LINE_STRIP);
+			glColor3f(1,1,1);
+			for(unsigned int i = 0; i < far_v.size(); i++){
+				glVertex2f(far_v[i].x, far_v[i].y);
+			}
 		glEnd();
 		//Draw the snapping points
 		for(unsigned int i = 0; i < w->snapping_points.size(); i++){
@@ -942,6 +911,7 @@ void MyGLWidget::LoadXML(){
 
 	if(doc.LoadFile()){
 		doc.Accept(loader);
+		sectors.clear();
 		sectors = loader->sectors;
 	}
 	delete loader;

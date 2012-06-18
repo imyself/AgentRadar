@@ -1,8 +1,8 @@
 /********************************************************************************
 ** Form generated from reading UI file 'agentradar.ui'
 **
-** Created: Sun Jun 17 18:13:36 2012
-**      by: Qt User Interface Compiler version 4.8.0
+** Created: Mon Jun 18 12:21:15 2012
+**      by: Qt User Interface Compiler version 4.8.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
